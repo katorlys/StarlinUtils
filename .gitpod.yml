@@ -1,0 +1,10 @@
+
+vscode:
+  extensions:
+    - vscjava.vscode-java-dependency
+    - vscjava.vscode-java-test
+    - vscjava.vscode-maven
+    - redhat.java
+    - vscjava.vscode-java-pack
+    - vscjava.vscode-java-debug
+    - redhat.fabric8-analytics
