@@ -1,6 +1,6 @@
 name: starlin_l2
-version: "1.0-SNAPSHOT"
+version: "1.0.0"
 author: Katorly
 main: com.github.katorly.starlin_l2.starlin_l2
-api-version: "1.18"
+api-version: 1.18
 description: A Spigot plugin made for StarlinWorld.

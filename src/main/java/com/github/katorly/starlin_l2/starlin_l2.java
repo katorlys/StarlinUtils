@@ -14,13 +14,13 @@ public class starlin_l2 extends JavaPlugin {
     @Override
     public void onEnable() {
         getServer().getPluginManager().registerEvents(new EventListener(),this);
-        Bukkit.getLogger().fine("Starlin_L2 enabled! Made for StarlinWorld server only.");
-        Bukkit.getLogger().info("Author: Katorly");
+        Bukkit.getLogger().info("[Starlin_L2] Author: Katorly");
+        Bukkit.getLogger().info("[Starlin_L2] Starlin_L2 enabled! Made for StarlinWorld server only.");
     }
 
     @Override
     public void onDisable() {
         HandlerList.unregisterAll(this);
-        Bukkit.getLogger().fine("Starlin_L2 disabled!");
+        Bukkit.getLogger().info("[Starlin_L2] Starlin_L2 disabled!");
     }
 }

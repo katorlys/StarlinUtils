@@ -13,14 +13,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 public class EventListener implements Listener {
-    @EventHandler
-    public void onCropTrample(PlayerInteractEvent e) {
-        if (e.getAction() == Action.PHYSICAL && e.getClickedBlock().getType() == Material.FARMLAND) {
-            e.setCancelled(true);
-        }
-    }
-
-    @EventHandler
+    @EventHandler //Prevent players from stucking in the Nether Portal when logging in.
     public void onPlayerJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
         Location l = p.getLocation();
@@ -36,8 +29,16 @@ public class EventListener implements Listener {
         || (l_xl.getBlock().getType() == Material.NETHER_PORTAL) || (l_xr.getBlock().getType() == Material.NETHER_PORTAL)
         || (l_up.getBlock().getType() == Material.NETHER_PORTAL) || (l_down.getBlock().getType() == Material.NETHER_PORTAL)
         || (l_zl.getBlock().getType() == Material.NETHER_PORTAL) || (l_zr.getBlock().getType() == Material.NETHER_PORTAL)) {
-            p.chat("/spawn");
-            MessageSender.sendMessage(p, "&b&l星林宇宙 &r&8>> &7检测到您在下界门处登录, 为防止您无法正常登录, 已将您传送到主城!");
+            Location spawn = w.getSpawnLocation();
+            p.teleport(spawn);
+            MessageSender.sendMessage(p, "&b&l星林宇宙 &r&8>> &7检测到您在下界门处登录, 为防止您无法正常登录, 已将您传送到出生点!");
+        }
+    }
+
+    @EventHandler //Prevent crops from being trampled.
+    public void onCropTrample(PlayerInteractEvent e) {
+        if (e.getAction() == Action.PHYSICAL && e.getClickedBlock().getType() == Material.FARMLAND) {
+            e.setCancelled(true);
         }
     }
 }

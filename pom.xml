@@ -4,7 +4,7 @@
 
     <artifactId>starlin_l2</artifactId>
     <groupId>com.github.katorly</groupId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     
     <!-- Repositories -->
     <repositories>
@@ -41,7 +41,7 @@
                 <artifactId>maven-antrun-plugin</artifactId>
                 <configuration>
                     <tasks>
-                        <copy file="target/starlin_l2-1.0-SNAPSHOT.jar" todir="/Users/Aditya/Desktop/spigot/plugins"/>
+                        <copy file="target/starlin_l2-1.0-SNAPSHOT.jar" todir="/workspace"/>
                     </tasks>
                 </configuration>
                 <executions>
