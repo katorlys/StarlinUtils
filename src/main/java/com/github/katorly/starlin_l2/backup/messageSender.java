@@ -13,7 +13,7 @@ public class messageSender {
      * @return
      */
     public static String Color(String string) {
-        return Objects.requireNonNull(string).replace("&", "§");
+        return Objects.requireNonNull(string).replace("&", "§").replace("§§", "&");
     }
 
     /**

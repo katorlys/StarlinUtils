@@ -8,3 +8,4 @@ vscode:
     - vscjava.vscode-java-pack
     - vscjava.vscode-java-debug
     - redhat.fabric8-analytics
+    - redhat.vscode-xml
