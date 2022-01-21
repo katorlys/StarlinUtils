@@ -37,6 +37,7 @@ public class CommandHandler implements TabExecutor {
                         messageSender.sendMessage(player, "&b&l星林宇宙 &r&8>> &7您 (&f" + pname + "&7) 的游玩信息:");
                         messageSender.sendMessage(player, " &7首次加入: &f" + first_time);
                         messageSender.sendMessage(player, " &7总计时长: &f" + total_time + " 小时");
+                        messageSender.sendMessage(player, " &7游玩信息在您退出重进后会更新.");
                     }
                 } else if (args.length == 2) {
                     Player p = null;
@@ -57,6 +58,7 @@ public class CommandHandler implements TabExecutor {
                         sender.sendMessage(messageSender.Color("&b&l星林宇宙 &r&8>> &7玩家 &f" + pname + "&7 的游玩信息:"));
                         sender.sendMessage(messageSender.Color(" &7首次加入: &f" + first_time));
                         sender.sendMessage(messageSender.Color(" &7总计时长: &f" + total_time + " 小时"));
+                        sender.sendMessage(messageSender.Color(" &7游玩信息在该玩家退出重进后会更新."));
                     } else {
                         sender.sendMessage(messageSender.Color("&b&l星林宇宙 &r&8>> &7玩家不在线或不存在!"));
                     }
@@ -81,7 +83,7 @@ public class CommandHandler implements TabExecutor {
             return sub;
         }
         if (args.length == 2) {
-            if (args[0] == "time") {
+            if (Objects.equals(args[0], "time")) {
                 List<String> sub = new ArrayList<>();
                 for (Player player : Bukkit.getOnlinePlayers()) {
                     sub.add(player.getName());

@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.github.katorly.starlin_l2.backup.configReader;
 import com.github.katorly.starlin_l2.backup.messageSender;
-import com.github.katorly.starlin_l2.utils.MonthlyPlayTime;
+import com.github.katorly.starlin_l2.utils.PlayTime;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -26,27 +26,10 @@ public class EventListener implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) throws ParseException {
-
-        FileConfiguration timedata = starlin_l2.timedata.getConfig(); //Check whether player has joined before.
-        long t = System.currentTimeMillis();
-        SimpleDateFormat d = new SimpleDateFormat("yyyy");
-        String year = d.format(t);
-        String u = e.getPlayer().getUniqueId().toString();
-        if (!starlin_l2.timedata.getConfig().contains(u)) { //if not
-            timedata.set(u + ".name", e.getPlayer().getName());
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
-            String timenow = dateFormat.format(t);
-            timedata.set(u + ".first-time", timenow);
-            timedata.set(u + ".total", 0.0);
-            configReader.save(starlin_l2.timedata);
-        }
-        if (!starlin_l2.timedata.getConfig().contains(u + ".month-time." + year)) {
-            timedata.set(u + ".month-time." + year, "0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0");
-            configReader.save(starlin_l2.timedata);
-        }
         
-        MonthlyPlayTime.initialize(e.getPlayer()); //Get player's join time.
+        PlayTime.initialize(e.getPlayer()); //Get player's join time and check whether player has joined before.
 
+        long t = System.currentTimeMillis();
         FileConfiguration monthly = starlin_l2.monthly.getConfig(); //Record monthly players.
         String pname = e.getPlayer().getName();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM");
@@ -94,7 +77,7 @@ public class EventListener implements Listener {
 
     @EventHandler //Count player's monthly play time.
     public void onPlayerLeave(PlayerQuitEvent e) throws ParseException {
-        MonthlyPlayTime.settle(e.getPlayer());
+        PlayTime.settle(e.getPlayer());
     }
 
     @EventHandler //Prevent crops from being trampled.

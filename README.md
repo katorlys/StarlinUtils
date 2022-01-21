@@ -1,6 +1,6 @@
 # Starlin_L2
 [![License](https://img.shields.io/badge/license-CC%20BY--NC--ND--4.0-green?style=for-the-badge)](http://creativecommons.org/licenses/by-nc-nd/4.0) ![Pull Requests](https://img.shields.io/github/issues-pr-closed/katorlys/Starlin_L2?style=for-the-badge) ![Issues](https://img.shields.io/github/issues-closed/katorlys/Starlin_L2?style=for-the-badge)<br>
-![Build](https://img.shields.io/github/workflow/status/katorlys/Starlin_L2/Build?style=for-the-badge)
+![Build](https://img.shields.io/github/workflow/status/katorlys/Starlin_L2/Build?style=for-the-badge) ![Codacy](https://img.shields.io/codacy/grade/b187c52b9b754ed8a670a3017201c05f?style=for-the-badge)
 
 ## Introduction
 Starlin_L2 Minecraft Spigot plugin made for StarlinWorld (星林宇宙) server.<br>
@@ -15,7 +15,7 @@ Main functions:<br>
 ![](https://cdn.jsdelivr.net/gh/katorly/Gallery001/plugins/2022-01-20_14.52.png)
 
 ## Commands
-- `/l2 time [player]` Displays the first-join time and monthly online time of the excutor or the specific player.
+- `/l2 time [player]` Displays the first-join time and total online time of the excutor or the specific player.
 
 ## Config
 ### timedata.yml
