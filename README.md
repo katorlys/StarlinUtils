@@ -17,10 +17,11 @@ Main functions:<br>
 
 ## Commands
 - `/l2 time [player]` Displays the first-join time and total online time of the excutor or the specific player.
-- `help` Displays the help document.
-- `givefly <player>` Gives a specific player fly.
-- `listfly` Lists the players that have fly.
-- `delfly <player>` Removes a specific player fly.
+- `/help` Displays the help document.
+For server OPs,  
+- `/givefly <player>` Gives a specific player fly.
+- `/listfly` Lists the players that have fly.
+- `/delfly <player>` Removes a specific player fly.
 
 ## Config
 ### config.yml
