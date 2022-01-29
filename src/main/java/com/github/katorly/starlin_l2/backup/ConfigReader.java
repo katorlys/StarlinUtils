@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class configReader {
+public class ConfigReader {
     private File file;
     private File filepath;
     private final JavaPlugin plugin;
@@ -75,7 +75,7 @@ public class configReader {
         }
     }
 
-    public configReader(JavaPlugin plugin, String pathname, String filename) {
+    public ConfigReader(JavaPlugin plugin, String pathname, String filename) {
         this.plugin = plugin;
         this.path = pathname;
         this.name = filename;
@@ -83,7 +83,7 @@ public class configReader {
         this.file = new File(filepath, name);
     }
 
-    public static void save(configReader config) {
+    public static void save(ConfigReader config) {
         config.saveConfig();
         config.reloadConfig();
     }

@@ -5,8 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.katorly.starlin_l2.backup.configReader;
-import com.github.katorly.starlin_l2.backup.messageSender;
+import com.github.katorly.starlin_l2.backup.ConfigReader;
+import com.github.katorly.starlin_l2.backup.Messager;
 import com.github.katorly.starlin_l2.utils.PlayTime;
 
 import org.bukkit.Location;
@@ -38,13 +38,13 @@ public class EventListener implements Listener {
             List<String> plist = new ArrayList<String>();
             plist.add(pname);
             monthly.set(timenow, plist);
-            configReader.save(starlin_l2.monthly);
+            ConfigReader.save(starlin_l2.monthly);
         } else {
             List<String> plist = monthly.getStringList(timenow);
             if (!plist.contains(pname)) {
                 plist.add(pname);
                 monthly.set(timenow, plist);
-                configReader.save(starlin_l2.monthly);
+                ConfigReader.save(starlin_l2.monthly);
             }
         }
 
@@ -67,9 +67,9 @@ public class EventListener implements Listener {
                 public void run() {
                     Location spawn = w.getSpawnLocation();
                     p.teleport(spawn);
-                    messageSender.sendMessage(p, "&b&l星林宇宙 &r&8>> &7检测到您在下界门处登录, 为防止您无法正常登录, 已将您传送到出生点!");
+                    Messager.sendMessage(p, "&b&l星林宇宙 &r&8>> &7检测到您在下界门处登录, 为防止您无法正常登录, 已将您传送到出生点!");
                     String x0 = String.format("%.2f", x); String y0 = String.format("%.2f", y); String z0 = String.format("%.2f", z);
-                    messageSender.sendMessage(p, "&b&l星林宇宙 &r&8>> &7下界门位置: " + x0 + ", " + y0 + ", " + z0);
+                    Messager.sendMessage(p, "&b&l星林宇宙 &r&8>> &7下界门位置: " + x0 + ", " + y0 + ", " + z0);
                 }
             }.runTaskLater(starlin_l2.INSTANCE, 4L);
         }

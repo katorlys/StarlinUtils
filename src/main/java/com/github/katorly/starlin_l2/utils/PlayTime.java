@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.github.katorly.starlin_l2.starlin_l2;
-import com.github.katorly.starlin_l2.backup.configReader;
+import com.github.katorly.starlin_l2.backup.ConfigReader;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -33,10 +33,10 @@ public class PlayTime {
             timedata.set(u + ".first-time", timenow);
             timedata.set(u + ".total", 0.0);
             timedata.set(u + ".month-time." + year, "0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0");
-            configReader.save(starlin_l2.timedata);
+            ConfigReader.save(starlin_l2.timedata);
         } else if (!starlin_l2.timedata.getConfig().contains(u + ".month-time." + year)) {
             timedata.set(u + ".month-time." + year, "0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0");
-            configReader.save(starlin_l2.timedata);
+            ConfigReader.save(starlin_l2.timedata);
         } else {
             if (starlin_l2.INSTANCE.StartTime.containsKey(p.getPlayer().getUniqueId())) {
                 Long t1 =starlin_l2.INSTANCE.StartTime.get(p.getPlayer().getUniqueId());
@@ -55,7 +55,7 @@ public class PlayTime {
                 timedata.set(u + ".month-time." + year, newtime);
                 Double newtotal = Double.valueOf(String.format("%.1f", timedata.getDouble(u + ".total"))) + minutes / 60.0;
                 timedata.set(u + ".total", Double.valueOf(String.format("%.1f", newtotal)));
-                configReader.save(starlin_l2.timedata);
+                ConfigReader.save(starlin_l2.timedata);
             }
         }
     }

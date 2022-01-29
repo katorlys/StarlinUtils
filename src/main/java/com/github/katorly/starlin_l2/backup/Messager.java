@@ -1,18 +1,18 @@
 package com.github.katorly.starlin_l2.backup;
-
 import java.util.Objects;
 
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class messageSender {
+public class Messager {
     /**
      * Replace "&" with "§" to fix color messages.
      * 
      * @param string
      * @return
      */
-    public static String Color(String string) {
+    public static String color(String string) {
         return Objects.requireNonNull(string).replace("&", "§").replace("§§", "&");
     }
 
@@ -23,7 +23,15 @@ public class messageSender {
      * @param message
      */
     public static void sendMessage(Player player, String message) {
-        player.sendMessage(messageSender.Color(message));
+        player.sendMessage(Messager.color(message));
+    }
+
+    /**
+     * Send message to a command sender.
+     *
+     */
+    public static void senderMessage(CommandSender sender, String message) {
+        sender.sendMessage(Messager.color(message));
     }
 
     /**
@@ -33,7 +41,7 @@ public class messageSender {
      */
     public static void broadcastMessage(String message) {
         for (Player player : Bukkit.getOnlinePlayers()) {
-            player.sendMessage(messageSender.Color(message));
+            player.sendMessage(Messager.color(message));
         }
     }
 
@@ -43,7 +51,7 @@ public class messageSender {
      * @param message
      */
     public static void broadcastMessageAll(String message) {
-        Bukkit.broadcastMessage(messageSender.Color(message));
+        Bukkit.broadcastMessage(Messager.color(message));
     }
 
     /**
@@ -54,7 +62,7 @@ public class messageSender {
      * @param subtitle
      */
     public static void sendTitle(Player player, String title, String subtitle) {
-        player.sendTitle(messageSender.Color(title), messageSender.Color(subtitle), 10, 40, 20); // Show title 2s
+        player.sendTitle(Messager.color(title), Messager.color(subtitle), 10, 40, 20); // Show title 2s
     }
 
     /**
@@ -65,7 +73,7 @@ public class messageSender {
      */
     public static void broadcastTitle(String title, String subtitle) {
         for (Player player : Bukkit.getOnlinePlayers()) {
-            player.sendTitle(messageSender.Color(title), messageSender.Color(subtitle), 10, 40, 20); // Show title 2s
+            player.sendTitle(Messager.color(title), Messager.color(subtitle), 10, 40, 20); // Show title 2s
         }
     }
 }
