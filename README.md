@@ -1,8 +1,8 @@
-# Starlin_L2
-[![License](https://img.shields.io/badge/license-CC%20BY--NC--ND--4.0-green?style=flat-square)](http://creativecommons.org/licenses/by-nc-nd/4.0) [![Pull Requests](https://img.shields.io/github/issues-pr-closed/katorlys/Starlin_L2?style=flat-square)](https://github.com/katorlys/Starlin_L2/pulls) [![Issues](https://img.shields.io/github/issues-closed/katorlys/Starlin_L2?style=flat-square)](https://github.com/katorlys/Starlin_L2/issues) [![Lines](https://img.shields.io/tokei/lines/github/katorlys/Starlin_L2?style=flat-square)](https://github.com/katorlys/Starlin_L2) [![Build](https://img.shields.io/github/workflow/status/katorlys/Starlin_L2/Build?style=flat-square)](https://github.com/katorlys/Starlin_L2/actions/workflows/build.yml) [![Codacy](https://img.shields.io/codacy/grade/b187c52b9b754ed8a670a3017201c05f?style=flat-square)](https://app.codacy.com/gh/katorlys/Starlin_L2)
+# StarlinUtils
+[![License](https://img.shields.io/badge/license-CC%20BY--NC--ND--4.0-green?style=flat-square)](http://creativecommons.org/licenses/by-nc-nd/4.0) [![Pull Requests](https://img.shields.io/github/issues-pr-closed/katorlys/StarlinUtils?style=flat-square)](https://github.com/katorlys/StarlinUtils/pulls) [![Issues](https://img.shields.io/github/issues-closed/katorlys/StarlinUtils?style=flat-square)](https://github.com/katorlys/StarlinUtils/issues) [![Lines](https://img.shields.io/tokei/lines/github/katorlys/StarlinUtils?style=flat-square)](https://github.com/katorlys/StarlinUtils) [![Build](https://img.shields.io/github/workflow/status/katorlys/StarlinUtils/Build?style=flat-square)](https://github.com/katorlys/StarlinUtils/actions/workflows/build.yml) [![Codacy](https://img.shields.io/codacy/grade/b187c52b9b754ed8a670a3017201c05f?style=flat-square)](https://app.codacy.com/gh/katorlys/StarlinUtils)
 
 ## Introduction
-Starlin_L2 Minecraft Spigot plugin made for StarlinWorld (星林宇宙) server.<br>
+StarlinUtils Minecraft Spigot plugin made for StarlinWorld (星林宇宙) server.<br>
 
 Main functions:<br>
 - Prevent players from stucking in the Nether Portal when logging in.
@@ -12,11 +12,14 @@ Main functions:<br>
 - Record player's first-join time and monthly online time.
 - Record the server's monthly players.
 ![](https://cdn.jsdelivr.net/gh/katorly/Gallery001/plugins/2022-01-20_14.52.png)
-- Conveniently manage player's fly.
+- Conveniently manage player's flying permission.
 - Displays the help document when player excutes `/help`.
+- Modifys colored concretes' recipe into the following **shapeless** recipe:
+![](https://cdn.jsdelivr.net/gh/katorly/Gallery001/plugins/2022_03_11_11.28.30.PNG)
 
 ## Commands
-- `/l2 time [player]` Displays the first-join time and total online time of the excutor or the specific player.
+- `/su time [player]` Displays the first-join time and total online time of the excutor or the specific player.
+- `/su info` Displays information about the player who excutes the command.
 - `/help` Displays the help document.
 For server OPs,  
 - `/givefly <player>` Gives a specific player fly.

@@ -1,13 +1,13 @@
-package com.github.katorly.starlin_l2;
+package com.github.katorly.starlinutils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.katorly.starlin_l2.backup.ConfigReader;
-import com.github.katorly.starlin_l2.backup.Messager;
-import com.github.katorly.starlin_l2.utils.PlayTime;
+import com.github.katorly.starlinutils.backup.ConfigReader;
+import com.github.katorly.starlinutils.backup.Messager;
+import com.github.katorly.starlinutils.utils.PlayTime;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -30,21 +30,21 @@ public class EventListener implements Listener {
         PlayTime.initialize(e.getPlayer()); //Get player's join time and check whether player has joined before.
 
         long t = System.currentTimeMillis();
-        FileConfiguration monthly = starlin_l2.monthly.getConfig(); //Record monthly players.
+        FileConfiguration monthly = StarlinUtils.monthly.getConfig(); //Record monthly players.
         String pname = e.getPlayer().getName();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM");
         String timenow = dateFormat.format(t);
-        if (!starlin_l2.monthly.getConfig().contains(timenow)) {
+        if (!StarlinUtils.monthly.getConfig().contains(timenow)) {
             List<String> plist = new ArrayList<String>();
             plist.add(pname);
             monthly.set(timenow, plist);
-            ConfigReader.save(starlin_l2.monthly);
+            ConfigReader.save(StarlinUtils.monthly);
         } else {
             List<String> plist = monthly.getStringList(timenow);
             if (!plist.contains(pname)) {
                 plist.add(pname);
                 monthly.set(timenow, plist);
-                ConfigReader.save(starlin_l2.monthly);
+                ConfigReader.save(StarlinUtils.monthly);
             }
         }
 
@@ -71,7 +71,7 @@ public class EventListener implements Listener {
                     String x0 = String.format("%.2f", x); String y0 = String.format("%.2f", y); String z0 = String.format("%.2f", z);
                     Messager.sendMessage(p, "&b&l星林宇宙 &r&8>> &7下界门位置: " + x0 + ", " + y0 + ", " + z0);
                 }
-            }.runTaskLater(starlin_l2.INSTANCE, 4L);
+            }.runTaskLater(StarlinUtils.INSTANCE, 4L);
         }
     }
 

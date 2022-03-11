@@ -1,13 +1,13 @@
-name: starlin_l2
-version: "1.0.4"
+name: StarlinUtils
+version: 1.0.5
 author: Katorly
-main: com.github.katorly.starlin_l2.starlin_l2
+main: com.github.katorly.starlinutils.StarlinUtils
 api-version: 1.18
 description: A Spigot plugin made for StarlinWorld.
 commands:
-  l2:
-    description: The main command of Starlin_L2.
-    usage: /l2
+  su:
+    description: The main command of StarlinUtils.
+    usage: /su
   help:
     description: Displays the help document.
     usage: /help

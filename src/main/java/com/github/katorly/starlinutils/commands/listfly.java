@@ -1,6 +1,6 @@
-package com.github.katorly.starlin_l2.commands;
+package com.github.katorly.starlinutils.commands;
 
-import com.github.katorly.starlin_l2.backup.Messager;
+import com.github.katorly.starlinutils.backup.Messager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;

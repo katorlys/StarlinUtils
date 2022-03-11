@@ -1,10 +1,10 @@
-package com.github.katorly.starlin_l2.commands;
+package com.github.katorly.starlinutils.commands;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import com.github.katorly.starlin_l2.backup.Messager;
+import com.github.katorly.starlinutils.backup.Messager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;

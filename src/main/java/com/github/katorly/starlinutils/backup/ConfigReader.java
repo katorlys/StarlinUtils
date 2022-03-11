@@ -1,4 +1,4 @@
-package com.github.katorly.starlin_l2.backup;
+package com.github.katorly.starlinutils.backup;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
