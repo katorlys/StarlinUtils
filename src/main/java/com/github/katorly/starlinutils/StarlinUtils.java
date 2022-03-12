@@ -25,6 +25,7 @@ public class StarlinUtils extends JavaPlugin {
     public static ConfigReader timedata;
     public static ConfigReader monthly;
     public Map<UUID, Long> StartTime = new HashMap<>();
+    public static boolean serverClosing = false;
     
     @Override
     public void onEnable() {
@@ -36,13 +37,12 @@ public class StarlinUtils extends JavaPlugin {
         monthly = new ConfigReader(this,"","monthly.yml");
         Bukkit.getPluginCommand("su").setExecutor(new su());
         Bukkit.getPluginCommand("su").setTabCompleter(new su());
-        Bukkit.getPluginCommand("help").setExecutor(new help());
         Bukkit.getPluginCommand("givefly").setExecutor(new givefly());
         Bukkit.getPluginCommand("givefly").setTabCompleter(new givefly());
         Bukkit.getPluginCommand("listfly").setExecutor(new listfly());
         Bukkit.getPluginCommand("delfly").setExecutor(new delfly());
         Bukkit.getPluginCommand("delfly").setTabCompleter(new delfly());
-        Recipe.registerConcreteRecipe(); //Add colored concrete
+        Recipe.registerConcreteRecipe(); //Add colored concrete recipe
         Bukkit.getLogger().info("[StarlinUtils] Repo: https://github.com/katorlys/StarlinUtils");
         Bukkit.getLogger().info("[StarlinUtils] StarlinUtils enabled! Made for StarlinWorld server only.");
         for (Player p : Bukkit.getOnlinePlayers()) {

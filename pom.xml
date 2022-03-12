@@ -4,7 +4,7 @@
 
     <artifactId>StarlinUtils</artifactId>
     <groupId>com.github.katorly</groupId>
-    <version>1.0.5</version>
+    <version>1.0.6</version>
     
     <!-- Repositories -->
     <repositories>
