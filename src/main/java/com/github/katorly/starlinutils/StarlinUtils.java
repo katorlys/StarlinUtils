@@ -65,7 +65,7 @@ public class StarlinUtils extends JavaPlugin {
                 e.printStackTrace();
             }
         }
-        Bukkit.clearRecipes();
+        Bukkit.resetRecipes();
         HandlerList.unregisterAll(this);
         ConfigReader.save(config);
         ConfigReader.save(timedata);
