@@ -6,7 +6,7 @@ import com.github.katorly.starlinutils.backup.Messager;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.scheduler.BukkitRunnable;
 
-public class CloserServer {
+public class CloseServer {
     public static void close() {
         if (!StarlinUtils.serverClosing) {
             StarlinUtils.serverClosing = true;

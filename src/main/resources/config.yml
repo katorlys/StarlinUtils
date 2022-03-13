@@ -1,2 +1,6 @@
+# The help document URL you want to display.
 help-document: "https://star-lin.feishu.cn/docs/doccnow2uz3RoK28RKLJleq0Qug"
+# Delay (seconds) before server shutting down.
 server-close-countdown: 10
+# Cooldown (seconds) of /su commands.
+su-command-cooldown: 2

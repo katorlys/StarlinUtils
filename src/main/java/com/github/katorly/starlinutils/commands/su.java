@@ -3,6 +3,7 @@ package com.github.katorly.starlinutils.commands;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 import com.github.katorly.starlinutils.StarlinUtils;
 import com.github.katorly.starlinutils.backup.Messager;
@@ -13,8 +14,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class su implements TabExecutor {
+    public List<UUID> suCooldown = new ArrayList<>();
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         FileConfiguration timedata = StarlinUtils.timedata.getConfig();
@@ -70,17 +74,29 @@ public class su implements TabExecutor {
                 if (!(sender instanceof Player)) {
                     Messager.senderMessage(sender, "&b&l星林宇宙 &r&8>> &7只有玩家才能查看自己的游戏状态!");
                 } else {
-                    Player p= (Player) sender;
-                    Messager.senderMessage(p, "&b&l星林宇宙 &r&8>> &7您当前的游戏状态:");
-                    Messager.senderMessage(p, " &7游戏ID: &f" + p.getName());
-                    Messager.senderMessage(p, " &7UUID: &f" + p.getUniqueId());
-                    Messager.senderMessage(p, " &7生命值: &f" + p.getHealth());
-                    Messager.senderMessage(p, " &7饱食度: &f" + p.getFoodLevel());
-                    Messager.senderMessage(p, " &7经验等级: &f" + p.getLevel());
-                    Messager.senderMessage(p, " &7游戏模式: &f" + p.getGameMode());
-                    Messager.senderMessage(p, " &7面朝: &f" + p.getFacing());
-                    Messager.senderMessage(p, " &7当前位置: &f" + p.getWorld().getName() + ", " + String.format("%.2f", p.getLocation().getX()) + ", " + String.format("%.2f", p.getLocation().getY()) + ", " + String.format("%.2f", p.getLocation().getZ()));
-                    Messager.senderMessage(p, " &7延迟: &f" + p.getPing() + "ms");
+                    final Player p= (Player) sender;
+                    if (!suCooldown.contains(p.getUniqueId())) {
+                        Messager.senderMessage(p, "&b&l星林宇宙 &r&8>> &7您当前的游戏状态:");
+                        Messager.senderMessage(p, " &7游戏ID: &f" + p.getName());
+                        Messager.senderMessage(p, " &7UUID: &f" + p.getUniqueId());
+                        Messager.senderMessage(p, " &7生命值: &f" + p.getHealth());
+                        Messager.senderMessage(p, " &7饱食度: &f" + p.getFoodLevel());
+                        Messager.senderMessage(p, " &7经验等级: &f" + p.getLevel());
+                        Messager.senderMessage(p, " &7游戏模式: &f" + p.getGameMode());
+                        Messager.senderMessage(p, " &7面朝: &f" + p.getFacing());
+                        Messager.senderMessage(p, " &7当前位置: &f" + p.getWorld().getName() + ", " + String.format("%.2f", p.getLocation().getX()) + ", " + String.format("%.2f", p.getLocation().getY()) + ", " + String.format("%.2f", p.getLocation().getZ()));
+                        Messager.senderMessage(p, " &7延迟: &f" + p.getPing() + "ms");
+                        suCooldown.add(p.getUniqueId());
+                        FileConfiguration config = StarlinUtils.config.getConfig();
+                        new BukkitRunnable() {
+                            @Override
+                            public void run() {
+                                suCooldown.remove(p.getUniqueId());
+                            }
+                        }.runTaskLater(StarlinUtils.INSTANCE, config.getInt("su-command-cooldown") * 20);
+                    } else { //cooldown
+                        Messager.senderMessage(p, "&b&l星林宇宙 &r&8>> &7您操作太频繁了!");
+                    }
                 }
             } else {
                 Messager.senderMessage(sender, "&b&l星林宇宙 &r&8>> &7用法: /su <参数>. 可用参数: time");

@@ -8,7 +8,7 @@ import java.util.Objects;
 
 import com.github.katorly.starlinutils.backup.ConfigReader;
 import com.github.katorly.starlinutils.backup.Messager;
-import com.github.katorly.starlinutils.utils.CloserServer;
+import com.github.katorly.starlinutils.utils.CloseServer;
 import com.github.katorly.starlinutils.utils.PlayTime;
 
 import org.bukkit.Bukkit;
@@ -105,7 +105,7 @@ public class EventListener implements Listener {
         } else if (Objects.equals(e.getMessage(), "/stop") || Objects.equals(e.getMessage(), "/reload") || Objects.equals(e.getMessage(), "/restart")) {
             if (e.getPlayer().isOp()) {
                 e.setCancelled(true);
-                CloserServer.close();
+                CloseServer.close();
             }
         }
     }
@@ -114,7 +114,7 @@ public class EventListener implements Listener {
     public void onConsoleCommand(ServerCommandEvent e) {
         if (Objects.equals(e.getCommand(), "stop") || Objects.equals(e.getCommand(), "reload") || Objects.equals(e.getCommand(), "restart")) {
             e.setCancelled(true);
-            CloserServer.close();
+            CloseServer.close();
             FileConfiguration config = StarlinUtils.config.getConfig();
             Bukkit.getLogger().info("[StarlinUtils] 已执行重启命令. 还有" + config.getInt("server-close-countdown") + "重启.");
         }
