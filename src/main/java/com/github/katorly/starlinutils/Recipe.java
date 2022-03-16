@@ -30,5 +30,6 @@ public class Recipe {
         ShapelessRecipe concreteRecipe = new ShapelessRecipe(new NamespacedKey(StarlinUtils.INSTANCE, concrete.toString() + "_starlin_recipe"), new ItemStack(concrete, 8));
         concreteRecipe = concreteRecipe.addIngredient(1, dye).addIngredient(8, Material.STONE);
         Bukkit.addRecipe(concreteRecipe);
+        StarlinUtils.INSTANCE.recipeKeys.add(concreteRecipe.getKey());
     }
 }
