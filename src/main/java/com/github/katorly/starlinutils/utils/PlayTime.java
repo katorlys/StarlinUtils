@@ -3,6 +3,7 @@ package com.github.katorly.starlinutils.utils;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 import com.github.katorly.starlinutils.StarlinUtils;
 import com.github.katorly.starlinutils.backup.ConfigReader;
@@ -47,6 +48,20 @@ public class PlayTime {
                 StarlinUtils.INSTANCE.StartTime.remove(p.getPlayer().getUniqueId());
                 String ytime = timedata.getString(u + ".month-time." + year);
                 String[] mtime = ytime.split(",");
+                if (mtime.length < 12) {
+                    int i = mtime.length;
+                    while (Objects.equals(i, 12)) {
+                        mtime[i - 1] = "0.0";
+                        i++;
+                    }
+                }
+                if (mtime.length > 12) {
+                    int i = mtime.length;
+                    while (Objects.equals(i, 12)) {
+                        mtime[i - 1] = "";
+                        i--;
+                    }
+                }
                 SimpleDateFormat n = new SimpleDateFormat("M");
                 String m = n.format(t);
                 int month = Integer.valueOf(m);

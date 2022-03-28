@@ -4,11 +4,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import com.github.katorly.starlinutils.backup.ConfigReader;
 import com.github.katorly.starlinutils.backup.Messager;
+import com.github.katorly.starlinutils.utils.CloseServer;
 import com.github.katorly.starlinutils.utils.PlayTime;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -17,9 +20,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.server.ServerCommandEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class EventListener implements Listener {
@@ -27,6 +32,10 @@ public class EventListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) throws ParseException {
         
+        if (StarlinUtils.serverClosing) { //Check whether server is going to close.
+            Messager.sendTitle(e.getPlayer(), "&b&l服务器即将重启", "&7请保管好个人物品!");
+        }
+
         PlayTime.initialize(e.getPlayer()); //Get player's join time and check whether player has joined before.
 
         long t = System.currentTimeMillis();
@@ -84,6 +93,30 @@ public class EventListener implements Listener {
     public void onCropTrample(PlayerInteractEvent e) {
         if (e.getAction() == Action.PHYSICAL && e.getClickedBlock().getType() == Material.FARMLAND) {
             e.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onPlayerCommand(PlayerCommandPreprocessEvent e) {
+        if (Objects.equals(e.getMessage(), "/help") && !e.getPlayer().isOp()) { //Displays the help document when player excutes "/help".
+            e.setCancelled(true);
+            FileConfiguration config = StarlinUtils.config.getConfig();
+            Messager.senderMessage(e.getPlayer(), "&b&l星林宇宙 &r&8>> &7新手指南: &f" + config.getString("help-document"));
+        } else if (Objects.equals(e.getMessage(), "/stop") || Objects.equals(e.getMessage(), "/reload") || Objects.equals(e.getMessage(), "/restart")) {
+            if (e.getPlayer().isOp()) {
+                e.setCancelled(true);
+                CloseServer.close();
+            }
+        }
+    }
+
+    @EventHandler
+    public void onConsoleCommand(ServerCommandEvent e) {
+        if (Objects.equals(e.getCommand(), "stop") || Objects.equals(e.getCommand(), "reload") || Objects.equals(e.getCommand(), "restart")) {
+            e.setCancelled(true);
+            CloseServer.close();
+            FileConfiguration config = StarlinUtils.config.getConfig();
+            Bukkit.getLogger().info("[StarlinUtils] 已执行重启命令. 还有" + config.getInt("server-close-countdown") + "秒重启.");
         }
     }
 }

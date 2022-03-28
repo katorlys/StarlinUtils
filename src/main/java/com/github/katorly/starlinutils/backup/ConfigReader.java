@@ -39,16 +39,22 @@ public class ConfigReader {
     public FileConfiguration getConfig() {
         if (!filepath.exists())
             this.saveDefaultConfig();
+        if (!file.exists())
+            this.saveDefaultConfig();
         if (config == null)
             this.reloadConfig();
         return config;
     }
 
     /**
-     * Reload the config. This will remove all the comments in it.
+     * Reload the config.
      * 
      */
     public void reloadConfig() {
+        if (!filepath.exists())
+            this.saveDefaultConfig();
+        if (!file.exists())
+            this.saveDefaultConfig();
         if (filepath == null)
             filepath = new File(plugin.getDataFolder(), path);
         if (file == null)
@@ -62,11 +68,13 @@ public class ConfigReader {
     }
 
     /**
-     * Save the config to apply changes.
+     * Save the config to apply changes. This will remove all the comments in it.
      * 
      */
     public void saveConfig() {
         if (!filepath.exists())
+            this.saveDefaultConfig();
+        if (!file.exists())
             this.saveDefaultConfig();
         try {
             config.save(file);

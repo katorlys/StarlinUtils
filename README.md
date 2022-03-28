@@ -12,8 +12,11 @@ Main functions:<br>
 - Record player's first-join time and monthly online time.
 - Record the server's monthly players.
 ![](https://cdn.jsdelivr.net/gh/katorly/Gallery001/plugins/2022-01-20_14.52.png)
+- Players can check their first-join time and total online time.
+- Players can check their current gaming status.
 - Conveniently manage player's flying permission.
 - Displays the help document when player excutes `/help`.
+- Forces server to delay shutdown progress and inform players (including players who just joined) that the server is going to shutdown when `/stop`, `/restart` or `/reload` being excuted.
 - Modifys colored concretes' recipe into the following **shapeless** recipe:
 ![](https://cdn.jsdelivr.net/gh/katorly/Gallery001/plugins/2022_03_11_11.28.30.PNG)
 
@@ -29,9 +32,12 @@ For server OPs,
 ## Config
 ### config.yml
 ```yml
+# The help document URL you want to display.
 help-document: "https://star-lin.feishu.cn/docs/doccnow2uz3RoK28RKLJleq0Qug"
+# Delay (minutes) before server shutting down.
+server-close-countdown: 10
 ```
-The document URL you want to display.
+
 
 ### timedata.yml
 ```yml

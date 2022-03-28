@@ -1,7 +1,9 @@
 package com.github.katorly.starlinutils;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -11,6 +13,7 @@ import com.github.katorly.starlinutils.festival.AprilFools;
 import com.github.katorly.starlinutils.utils.PlayTime;
 
 import org.bukkit.Bukkit;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -25,6 +28,8 @@ public class StarlinUtils extends JavaPlugin {
     public static ConfigReader timedata;
     public static ConfigReader monthly;
     public Map<UUID, Long> StartTime = new HashMap<>();
+    public static boolean serverClosing = false;
+    public final List<NamespacedKey> recipeKeys = new ArrayList<>();
     
     @Override
     public void onEnable() {
@@ -32,17 +37,18 @@ public class StarlinUtils extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new AprilFools(),this);
         config = new ConfigReader(this,"","config.yml");
 	    config.saveDefaultConfig();
-        timedata = new ConfigReader(this,"","timedata.yml");
-        monthly = new ConfigReader(this,"","monthly.yml");
+        timedata = new ConfigReader(this, "", "timedata.yml");
+        timedata.saveDefaultConfig();
+        monthly = new ConfigReader(this, "", "monthly.yml");
+        monthly.saveDefaultConfig();
         Bukkit.getPluginCommand("su").setExecutor(new su());
         Bukkit.getPluginCommand("su").setTabCompleter(new su());
-        Bukkit.getPluginCommand("help").setExecutor(new help());
         Bukkit.getPluginCommand("givefly").setExecutor(new givefly());
         Bukkit.getPluginCommand("givefly").setTabCompleter(new givefly());
         Bukkit.getPluginCommand("listfly").setExecutor(new listfly());
         Bukkit.getPluginCommand("delfly").setExecutor(new delfly());
         Bukkit.getPluginCommand("delfly").setTabCompleter(new delfly());
-        Recipe.registerConcreteRecipe(); //Add colored concrete
+        Recipe.registerConcreteRecipe(); //Add colored concrete recipe
         Bukkit.getLogger().info("[StarlinUtils] Repo: https://github.com/katorlys/StarlinUtils");
         Bukkit.getLogger().info("[StarlinUtils] StarlinUtils enabled! Made for StarlinWorld server only.");
         for (Player p : Bukkit.getOnlinePlayers()) {
@@ -65,11 +71,12 @@ public class StarlinUtils extends JavaPlugin {
                 e.printStackTrace();
             }
         }
-        Bukkit.clearRecipes();
+        recipeKeys.forEach(Bukkit::removeRecipe);
+        recipeKeys.clear();
         HandlerList.unregisterAll(this);
-        ConfigReader.save(config);
-        ConfigReader.save(timedata);
-        ConfigReader.save(monthly);
+        config.reloadConfig();
+        timedata.reloadConfig();
+        monthly.reloadConfig();
         Bukkit.getLogger().info("[StarlinUtils] StarlinUtils disabled!");
     }
 }

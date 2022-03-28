@@ -1,5 +1,5 @@
 name: StarlinUtils
-version: 1.0.5
+version: 1.0.6
 author: Katorly
 main: com.github.katorly.starlinutils.StarlinUtils
 api-version: 1.18
@@ -8,9 +8,6 @@ commands:
   su:
     description: The main command of StarlinUtils.
     usage: /su
-  help:
-    description: Displays the help document.
-    usage: /help
   givefly:
     description: Gives a specific player fly.
     usage: /givefly <player>
