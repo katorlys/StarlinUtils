@@ -49,15 +49,16 @@ public class PlayTime {
                 String ytime = timedata.getString(u + ".month-time." + year);
                 String[] mtime = ytime.split(",");
                 if (mtime.length < 12) {
-                    int i = 12 - mtime.length;
+                    int i = mtime.length;
                     while (Objects.equals(i, 12)) {
                         mtime[i - 1] = "0.0";
                         i++;
                     }
-                } else if (mtime.length > 12) {
-                    int i = mtime.length - 12;
+                }
+                if (mtime.length > 12) {
+                    int i = mtime.length;
                     while (Objects.equals(i, 12)) {
-                        mtime[i - 1] = null;
+                        mtime[i - 1] = "";
                         i--;
                     }
                 }
