@@ -116,7 +116,7 @@ public class EventListener implements Listener {
             e.setCancelled(true);
             CloseServer.close();
             FileConfiguration config = StarlinUtils.config.getConfig();
-            Bukkit.getLogger().info("[StarlinUtils] 已执行重启命令. 还有" + config.getInt("server-close-countdown") + "重启.");
+            Bukkit.getLogger().info("[StarlinUtils] 已执行重启命令. 还有" + config.getInt("server-close-countdown") + "秒重启.");
         }
     }
 }
