@@ -7,11 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.ProtocolManager;
 import com.github.katorly.starlinutils.backup.ConfigReader;
 import com.github.katorly.starlinutils.commands.*;
-import com.github.katorly.starlinutils.festival.*;
 import com.github.katorly.starlinutils.utils.PlayTime;
 
 import org.bukkit.Bukkit;
@@ -32,13 +29,13 @@ public class StarlinUtils extends JavaPlugin {
     public Map<UUID, Long> StartTime = new HashMap<>();
     public static boolean serverClosing = false;
     public final List<NamespacedKey> recipeKeys = new ArrayList<>();
-    public static ProtocolManager cab = ProtocolLibrary.getProtocolManager();
+    // public static ProtocolManager cab = ProtocolLibrary.getProtocolManager(); //清明节
 
     @Override
     public void onEnable() {
         getServer().getPluginManager().registerEvents(new EventListener(), this);
-        ClearAndBright.grayChatting();
-        // getServer().getPluginManager().registerEvents(new AprilFools(),this);
+        // ClearAndBright.grayChatting(); //清明节
+        // getServer().getPluginManager().registerEvents(new AprilFools(),this); //愚人节
         config = new ConfigReader(this,"","config.yml");
 	    config.saveDefaultConfig();
         timedata = new ConfigReader(this, "", "timedata.yml");

@@ -3,8 +3,8 @@ version: 1.0.6
 author: Katorly
 main: com.github.katorly.starlinutils.StarlinUtils
 api-version: 1.18
-softdepend:
-  - "ProtocolLib"
+# softdepend:
+#   - "ProtocolLib"
 description: A Spigot plugin made for StarlinWorld.
 commands:
   su:
