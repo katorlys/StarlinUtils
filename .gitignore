@@ -8,7 +8,6 @@ bin
 
 .gradle
 *.jar
-!gradle-wrapper.jar
 
 # End of Origin gitignore
 
