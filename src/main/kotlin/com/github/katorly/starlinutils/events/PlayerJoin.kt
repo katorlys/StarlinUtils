@@ -1,27 +1,29 @@
 package com.github.katorly.starlinutils.events
 
+import com.github.katorly.starlinutils.ConfigHandler.prefix
 import com.github.katorly.starlinutils.StarlinUtils
-import com.github.katorly.starlinutils.utils.Messager
+import com.github.katorly.starlinutils.StarlinUtils.plugin
+import com.github.katorly.starlinutils.utils.Messager.sm
+import com.github.katorly.starlinutils.utils.Messager.st
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.World
 import org.bukkit.entity.Player
-import org.bukkit.event.EventHandler
-import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.scheduler.BukkitRunnable
+import taboolib.common.platform.event.SubscribeEvent
 
 
-class PlayerJoin : Listener {
-    @EventHandler
+object PlayerJoin {
+    @SubscribeEvent
     fun onPlayerJoin(e: PlayerJoinEvent) {
         /**
          * 检测服务器是否即将关闭, 若是, 则提醒玩家.
          *
          */
         if (StarlinUtils.serverClosing) {
-            Messager.st(e.player, "&b&l服务器即将重启", "&7请保管好个人物品!")
+            st(e.player, "&b&l服务器即将重启", "&7请保管好个人物品!")
         }
         /**
          * 防卡下界门: 若玩家登录地点为下界门,
@@ -54,16 +56,14 @@ class PlayerJoin : Listener {
                     override fun run() {
                         val spawn: Location = w.spawnLocation
                         p.teleport(spawn)
-                        Messager.sm(
-                            p,
-                            "&b&l星林宇宙 &r&8>> &7检测到您在下界门处上线, 为防止您无法正常登录, 已将您传送到出生点!"
+                        sm(p, "${prefix}检测到您在下界门处上线, 为防止您无法正常登录, 已将您传送到出生点!"
                         )
                         val x0 = String.format("%.2f", x)
                         val y0 = String.format("%.2f", y)
                         val z0 = String.format("%.2f", z)
-                        Messager.sm(p, "&b&l星林宇宙 &r&8>> &7下界门位置: $x0, $y0, $z0")
+                        sm(p, "${prefix}下界门位置: $x0, $y0, $z0")
                     }
-                }.runTaskLater(StarlinUtils.INSTANCE, 4L)
+                }.runTaskLater(plugin, 4L)
             }
         }
     }

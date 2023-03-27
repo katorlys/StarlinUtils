@@ -22,3 +22,28 @@ jobs:
         uses: gradle/wrapper-validation-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+      - name: make gradle wrapper executable
+        run: chmod +x ./gradlew
+      # 第一次构建
+      - name: build
+        continue-on-error: true
+        id: build_1
+        run: ./gradlew build
+      # 第二次构建
+      - name: build (retry 1)
+        continue-on-error: true
+        id: build_2
+        if: steps.build_1.outcome == 'failure'
+        run: ./gradlew build
+      # 第三次构建
+      - name: build (retry 2)
+        continue-on-error: true
+        id: build_3
+        if: steps.build_2.outcome == 'failure'
+        run: ./gradlew build
+      # 上传构建文件
+      - name: capture build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Artifacts
+          path: build/libs/

@@ -1,5 +1,7 @@
 package com.github.katorly.starlinutils.utils
 
+import taboolib.common.platform.function.submit
+
 /**
  * Wait in Bukkit/Spigot
  * Copyright (c) 2023 Katorly Lab (https://github.com/katorlys)
@@ -9,30 +11,23 @@ package com.github.katorly.starlinutils.utils
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-import com.github.katorly.starlinutils.StarlinUtils
-import org.bukkit.scheduler.BukkitRunnable
+object Wait {
+    /**
+     * Delay one second.
+     *
+     */
+    fun onesec() {
+        delay(1.0)
+    }
 
-class Wait {
-    companion object {
-        /**
-         * Delay one second.
-         *
-         */
-        fun onesec() {
-            delay(1.0)
-        }
-
-        /**
-         * Delay these second(s).
-         *
-         * @param seconds Seconds to delay.
-         */
-        fun delay(seconds: Double) {
-            object : BukkitRunnable() {
-                override fun run() {
-                    cancel()
-                }
-            }.runTaskLater(StarlinUtils.INSTANCE, seconds.toLong() * 20)
+    /**
+     * Delay these second(s).
+     *
+     * @param seconds Seconds to delay.
+     */
+    fun delay(seconds: Double) {
+        submit(delay = seconds.toLong()) {
+            cancel()
         }
     }
 }

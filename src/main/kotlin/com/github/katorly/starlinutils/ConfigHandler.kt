@@ -1,26 +1,32 @@
 package com.github.katorly.starlinutils
 
-import com.github.katorly.starlinutils.utils.Configer
+import taboolib.module.configuration.Config
+import taboolib.module.configuration.Configuration
 
-class ConfigHandler {
-    companion object {
-        lateinit var config: Configer
+object ConfigHandler {
+    @Config("config.yml")
+    lateinit var config: Configuration
 
-        /**
-         * Register all the configs of the plugin.
-         *
-         */
-        fun registerConfigs() {
-            config = Configer(StarlinUtils.INSTANCE, "", "config.yml")
-            config.saveDefaultConfig()
+    var conf: MutableMap<String, String> = HashMap()
+    var confl: MutableMap<String, List<String>> = HashMap()
+    lateinit var prefix: String
+
+//    @Config("gamerule.yml")
+//    lateinit var gm: Configuration
+
+    fun reloadConfig() {
+        config.reload()
+        cache()
+    }
+
+    private fun cache() {
+        conf.clear()
+        confl.clear()
+        for (key in config.getKeys(true)) {
+            if (config.isString(key) && config.getString(key) != null) conf.put(key, config.getString(key)!!)
+            else if (config.getStringList(key).isNotEmpty()) confl.put(key, config.getStringList(key))
         }
-
-        /**
-         * Reload all the config.
-         *
-         */
-        fun reloadConfig() {
-            config.reloadConfig()
-        }
+        if (conf["prefix"] != null) prefix = conf["prefix"]!!
+        else prefix = "&b&l星林宇宙 &r&7>> &7"
     }
 }

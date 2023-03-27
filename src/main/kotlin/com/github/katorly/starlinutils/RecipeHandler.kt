@@ -1,5 +1,6 @@
 package com.github.katorly.starlinutils
 
+import com.github.katorly.starlinutils.StarlinUtils.plugin
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
@@ -27,9 +28,9 @@ class RecipeHandler {
             concreteRecipe(Material.YELLOW_CONCRETE, Material.YELLOW_DYE)
         }
 
-        fun concreteRecipe(concrete: Material, dye: Material?) { // 1 * 彩色染料 + 8 * 石头 = 8 * 彩色混凝土.
+        private fun concreteRecipe(concrete: Material, dye: Material?) { // 1 * 彩色染料 + 8 * 石头 = 8 * 彩色混凝土.
             var concreteRecipe = ShapelessRecipe(
-                NamespacedKey(StarlinUtils.INSTANCE, concrete.toString() + "_starlin_recipe"),
+                NamespacedKey(plugin, concrete.toString() + "_starlin_recipe"),
                 ItemStack(concrete, 8)
             )
             concreteRecipe = concreteRecipe.addIngredient(1, dye!!).addIngredient(8, Material.STONE)
