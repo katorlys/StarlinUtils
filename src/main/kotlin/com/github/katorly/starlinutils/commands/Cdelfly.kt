@@ -1,54 +1,37 @@
 package com.github.katorly.starlinutils.commands
 
-import com.github.katorly.starlinutils.ConfigHandler
-import com.github.katorly.starlinutils.utils.Messager
-import org.bukkit.Bukkit
-import org.bukkit.command.Command
-import org.bukkit.command.CommandSender
-import org.bukkit.command.TabExecutor
-import org.bukkit.configuration.file.FileConfiguration
-import org.bukkit.entity.Player
+import com.github.katorly.starlinutils.ConfigHandler.conf
+import com.github.katorly.starlinutils.ConfigHandler.prefix
+import com.github.katorly.starlinutils.utils.Messager.sm
+import taboolib.common.platform.ProxyCommandSender
+import taboolib.common.platform.command.CommandBody
+import taboolib.common.platform.command.CommandHeader
+import taboolib.common.platform.command.mainCommand
+import taboolib.common.platform.function.onlinePlayers
+import taboolib.common5.util.replace
 
 /**
  * 移除一名玩家的飞行权限.
  *
  */
-class Cdelfly : TabExecutor {
-    override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
-        if (command.name.equals("delfly", ignoreCase = true)) {
-            if (args.size == 1) {
-                val config: FileConfiguration? = ConfigHandler.config.getConfig()
-                val cmd: String? = config?.getString("fly.del-fly")?.replace("<player>", args[0])
-                if (sender is Player) {
-                    sender.performCommand(cmd!!)
-                } else {
-                    Bukkit.getServer()
-                        .dispatchCommand(Bukkit.getServer().consoleSender, cmd!!)
-                }
-            } else {
-                Messager.srm(sender, "&b&l星林宇宙 &r&8>> &7用法: /delfly <玩家ID>.")
+@CommandHeader("delfly")
+object Cdelfly {
+    @CommandBody
+    val main = mainCommand {
+        dynamic(optional = true) {
+            suggestion<ProxyCommandSender> { sender, context ->
+                onlinePlayers().map { it.name }
+            }
+            execute<ProxyCommandSender> { sender, context, arg ->
+                val cmd: String? = conf["fly.del-fly"]?.replace(Pair("<player>", arg))
+                sender.performCommand(cmd!!)
             }
         }
-        return true
-    }
-
-    override fun onTabComplete(
-        sender: CommandSender,
-        command: Command,
-        label: String,
-        args: Array<String>
-    ): List<String>? {
-        if (sender !is Player) {
-            return null
-        } else if (sender.isOp && args.size == 1) {
-            if (args[0] == "givefly") {
-                val sub: MutableList<String> = ArrayList()
-                for (player in Bukkit.getOnlinePlayers()) {
-                    sub.add(player.name)
-                }
-                return sub
-            }
+        execute<ProxyCommandSender> { sender, context, arg ->
+            sm(sender, "${prefix}用法: /delfly <玩家ID>.")
         }
-        return null
+        incorrectCommand { sender, context, index, state ->
+            sm(sender, "${prefix}用法: /delfly <玩家ID>.")
+        }
     }
 }
