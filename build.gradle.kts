@@ -13,7 +13,7 @@ taboolib {
             name("Katorly")
         }
     }
-    install("common", "common-5", "module-chat", "module-configuration-shaded", "module-database-shaded", "module-ui")
+    install("common", "common-5", "module-chat", "module-configuration", "module-database", "module-ui")
     install("platform-bukkit")
     install("expansion-command-helper")
     install("expansion-player-database")
@@ -30,8 +30,9 @@ version = project.property("pluginVersion") as String
 
 repositories {
     mavenCentral()
-    maven { url = uri("https://hub.spigotmc.org/nexus/content/repositories/snapshots/") }
+    maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
 //    maven("https://repo.tabooproject.org/repository/releases")
+//    maven("https://repo.onarandombox.com/content/groups/public/")
 }
 
 dependencies {
@@ -41,6 +42,7 @@ dependencies {
     compileOnly("ink.ptms.core:v11902:11902-minimize:mapped")
     compileOnly("ink.ptms.core:v11902:11902-minimize:universal")
     compileOnly(fileTree("libs"))
+//    compileOnly("com.onarandombox.multiversecore:Multiverse-Core:4.3.2-SNAPSHOT") // Fck Multiverse-Core - latest version x complete in mvn repo
 }
 
 tasks {

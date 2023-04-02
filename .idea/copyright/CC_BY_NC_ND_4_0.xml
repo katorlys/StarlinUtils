@@ -1,0 +1,6 @@
+<component name="CopyrightManager">
+  <copyright>
+    <option name="notice" value="Copyright (c) &amp;#36;originalComment.match(&quot;Copyright \(c\) (\d+)&quot;, 1, &quot;-&quot;, &quot;&amp;#36;today.year&quot;)&amp;#36;today.year Katorly Lab (https://github.com/katorlys)&#10;&#10;This Source Code Form is licensed under CC BY-NC-ND 4.0&#10;(Attribution-NonCommercial-NoDerivatives 4.0&#10;International). To view a copy of this license, visit&#10;http://creativecommons.org/licenses/by-nc-nd/4.0/." />
+    <option name="myName" value="CC BY-NC-ND 4.0" />
+  </copyright>
+</component>
