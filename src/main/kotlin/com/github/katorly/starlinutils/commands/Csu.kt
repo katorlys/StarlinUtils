@@ -1,7 +1,17 @@
+/*
+ * Copyright (c) 2020-2023 Katorly Lab (https://github.com/katorlys)
+ *
+ * This Source Code Form is licensed under CC BY-NC-ND 4.0
+ * (Attribution-NonCommercial-NoDerivatives 4.0
+ * International). To view a copy of this license, visit
+ * http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package com.github.katorly.starlinutils.commands
 
 import com.github.katorly.starlinutils.ConfigHandler.prefix
 import com.github.katorly.starlinutils.ConfigHandler.reloadConfig
+import com.github.katorly.starlinutils.gamerule.GameruleHandler.setGamerule
 import com.github.katorly.starlinutils.utils.Messager.sm
 import taboolib.common.platform.ProxyCommandSender
 import taboolib.common.platform.command.CommandBody
@@ -18,10 +28,21 @@ object Csu {
     @CommandBody
     val main = mainCommand {
         execute<ProxyCommandSender> { sender, context, arg ->
-            sm(sender, "${prefix}用法: /su <参数>.")
+            sm(sender, "${prefix}用法: /su <二级指令>.")
         }
         incorrectCommand { sender, context, index, state ->
-            sm(sender, "${prefix}用法: /su <参数>.")
+            sm(sender, "${prefix}用法: /su <二级指令>.")
+        }
+    }
+
+    @CommandBody(optional = true, aliases = ["gr", "grm", "grms"])
+    val gamerule = subCommand {
+        execute<ProxyCommandSender> { sender, context, arg ->
+            if (sender.isOp) {
+                sm(sender, "${prefix}成功执行游戏规则自动设置, 共更改 &f${setGamerule()} &7处.")
+            } else {
+                sm(sender, "${prefix}没有权限!")
+            }
         }
     }
 

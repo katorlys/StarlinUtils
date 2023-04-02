@@ -1,3 +1,12 @@
+/*
+ * Copyright (c) 2020-2023 Katorly Lab (https://github.com/katorlys)
+ *
+ * This Source Code Form is licensed under CC BY-NC-ND 4.0
+ * (Attribution-NonCommercial-NoDerivatives 4.0
+ * International). To view a copy of this license, visit
+ * http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package com.github.katorly.starlinutils
 
 import com.github.katorly.starlinutils.ConfigHandler.reloadConfig
@@ -9,12 +18,15 @@ import taboolib.common.platform.Plugin
 import taboolib.common.platform.function.info
 import taboolib.platform.BukkitPlugin
 
+
 object StarlinUtils: Plugin() {
     val plugin by lazy { BukkitPlugin.getInstance() }
     var serverClosing = false
     val recipeKeys: MutableList<NamespacedKey> = ArrayList()
 
     override fun onEnable() {
+        if (Bukkit.getPluginManager().getPlugin("Multiverse-Core") != null) info("[StarlinUtils] 识别到 Multiverse-Core.")
+        else info("[StarlinUtils] Multiverse-Core 未加载. 多世界游戏规则设定功能将不可用.")
         reloadConfig()
         RecipeHandler.registerConcreteRecipe()
         info("[StarlinUtils] 仓库: https://github.com/katorlys/StarlinUtils")
@@ -22,6 +34,7 @@ object StarlinUtils: Plugin() {
     }
 
     override fun onDisable() {
+        reloadConfig()
         unregisterAll()
         getScheduler().cancelTasks(plugin)
         recipeKeys.forEach(Bukkit::removeRecipe)

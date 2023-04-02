@@ -9,20 +9,14 @@
 
 package com.github.katorly.starlinutils.events
 
-import org.bukkit.Material
-import org.bukkit.event.block.Action
-import org.bukkit.event.player.PlayerInteractEvent
+import com.github.katorly.starlinutils.gamerule.GameruleHandler.setGamerule
+import org.bukkit.event.server.ServerLoadEvent
 import taboolib.common.platform.event.SubscribeEvent
+import taboolib.common.platform.function.info
 
-/**
- * 防止耕地被踩踏.
- *
- */
-object CropTrample {
+object ServerLoad {
     @SubscribeEvent
-    fun onCropTrample(e: PlayerInteractEvent) {
-        if (e.action == Action.PHYSICAL && e.clickedBlock!!.type == Material.FARMLAND) {
-            e.isCancelled = true
-        }
+    fun onServerLoaded(e: ServerLoadEvent) {
+        info("[StarlinUtils] 执行游戏规则自动设置完毕, 共更改 ${setGamerule()} 处.")
     }
 }

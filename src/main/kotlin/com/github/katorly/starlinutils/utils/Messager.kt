@@ -1,4 +1,22 @@
+/*
+ * Copyright (c) 2023 Katorly Lab (https://github.com/katorlys)
+ *
+ * This Source Code Form is licensed under CC BY-NC-ND 4.0
+ * (Attribution-NonCommercial-NoDerivatives 4.0
+ * International). To view a copy of this license, visit
+ * http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package com.github.katorly.starlinutils.utils
+
+/**
+ * Spigot-Messager (https://github.com/katorlys/Spigot-MessageSender)
+ * Copyright (c) 2021-2023 Katorly Lab (https://github.com/katorlys)
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
 
 import org.bukkit.Bukkit
 import org.bukkit.boss.BarColor
@@ -9,15 +27,6 @@ import taboolib.common.platform.ProxyPlayer
 import taboolib.common.platform.function.submit
 import taboolib.module.chat.colored
 import taboolib.platform.util.sendActionBar
-
-/**
- * Spigot-Messager (https://github.com/katorlys/Spigot-MessageSender)
- * Copyright (c) 2021-2023 Katorly Lab (https://github.com/katorlys)
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
 
 object Messager {
     /**
@@ -68,7 +77,7 @@ object Messager {
      * Send list message to all online players.
      * ! Bukkit Only
      *
-     * @param message
+     * @param list
      */
     fun bm(list: List<String>) {
         for (target in Bukkit.getOnlinePlayers()) {
