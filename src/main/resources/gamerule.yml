@@ -2,15 +2,15 @@
 # 每次服务器启动完毕时将自动执行一次, 也可以使用 /su gr 触发.
 
 # 请务必确保游戏规则存在且相应的游戏规则值存在. 否则您的设置无效.
-# worlds键值不填则表示全部世界.
+# worlds键值填写 "*" 则表示全部世界. (请务必带上引号, 否则用 * 会报错)
 # 示例:
 #keepInventory:
 #  value: true
-#  worlds: world
+#  worlds: "*"
 
 keepInventory:
   value: true
-  worlds:
+  worlds: "*"
 randomTickSpeed:
   value: 20
   worlds: world, world_the_end

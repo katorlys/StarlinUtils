@@ -9,7 +9,7 @@
 
 package com.github.katorly.starlinutils.events
 
-import com.github.katorly.starlinutils.gamerule.GameruleHandler
+import com.github.katorly.starlinutils.gamerule.GameruleHandler.setGamerule
 import org.bukkit.event.server.ServerLoadEvent
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.info
@@ -17,6 +17,6 @@ import taboolib.common.platform.function.info
 object ServerLoad {
     @SubscribeEvent
     fun onServerLoaded(e: ServerLoadEvent) {
-        info("[StarlinUtils] 执行游戏规则自动设置完毕, 共更改 ${GameruleHandler.setGamerule()} 处.")
+        info("[StarlinUtils] 执行游戏规则自动设置完毕, 共更改 ${setGamerule()} 处.")
     }
 }

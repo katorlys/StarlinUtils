@@ -1,3 +1,12 @@
+/*
+ * Copyright (c) 2023 Katorly Lab (https://github.com/katorlys)
+ *
+ * This Source Code Form is licensed under CC BY-NC-ND 4.0
+ * (Attribution-NonCommercial-NoDerivatives 4.0
+ * International). To view a copy of this license, visit
+ * http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -32,7 +41,7 @@ repositories {
     mavenCentral()
     maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
 //    maven("https://repo.tabooproject.org/repository/releases")
-//    maven("https://repo.onarandombox.com/content/groups/public/")
+    maven("https://repo.onarandombox.com/content/groups/public/")
 }
 
 dependencies {
@@ -42,7 +51,7 @@ dependencies {
     compileOnly("ink.ptms.core:v11902:11902-minimize:mapped")
     compileOnly("ink.ptms.core:v11902:11902-minimize:universal")
     compileOnly(fileTree("libs"))
-//    compileOnly("com.onarandombox.multiversecore:Multiverse-Core:4.3.2-SNAPSHOT") // Fck Multiverse-Core - latest version x complete in mvn repo
+    compileOnly("com.onarandombox.multiversecore:Multiverse-Core:4.3.2-SNAPSHOT") // Fck Multiverse-Core - latest version x complete in mvn repo
 }
 
 tasks {

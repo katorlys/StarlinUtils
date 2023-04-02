@@ -11,7 +11,7 @@ package com.github.katorly.starlinutils.commands
 
 import com.github.katorly.starlinutils.ConfigHandler.prefix
 import com.github.katorly.starlinutils.ConfigHandler.reloadConfig
-import com.github.katorly.starlinutils.gamerule.GameruleHandler
+import com.github.katorly.starlinutils.gamerule.GameruleHandler.setGamerule
 import com.github.katorly.starlinutils.utils.Messager.sm
 import taboolib.common.platform.ProxyCommandSender
 import taboolib.common.platform.command.CommandBody
@@ -39,7 +39,7 @@ object Csu {
     val gamerule = subCommand {
         execute<ProxyCommandSender> { sender, context, arg ->
             if (sender.isOp) {
-                sm(sender, "${prefix}成功执行游戏规则自动设置, 共更改 &f${GameruleHandler.setGamerule()} &7处.")
+                sm(sender, "${prefix}成功执行游戏规则自动设置, 共更改 &f${setGamerule()} &7处.")
             } else {
                 sm(sender, "${prefix}没有权限!")
             }
