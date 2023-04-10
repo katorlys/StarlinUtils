@@ -11,17 +11,17 @@ package com.github.katorly.starlinutils.events
 
 import com.github.katorly.starlinutils.ConfigHandler.prefix
 import com.github.katorly.starlinutils.StarlinUtils
-import com.github.katorly.starlinutils.StarlinUtils.plugin
 import com.github.katorly.starlinutils.utils.Messager.sm
 import com.github.katorly.starlinutils.utils.Messager.st
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.Material
-import org.bukkit.World
+import org.bukkit.block.Block
+import org.bukkit.block.BlockFace
 import org.bukkit.entity.Player
 import org.bukkit.event.player.PlayerJoinEvent
-import org.bukkit.scheduler.BukkitRunnable
 import taboolib.common.platform.event.SubscribeEvent
+import taboolib.common.platform.function.submit
 
 object PlayerJoin {
     @SubscribeEvent
@@ -33,6 +33,7 @@ object PlayerJoin {
         if (StarlinUtils.serverClosing) {
             st(e.player, "&b&l服务器即将重启", "&7请保管好个人物品!")
         }
+
         /**
          * 防卡下界门: 若玩家登录地点为下界门,
          * 则传送其至出生点, 防止玩家无法使用登录功能.
@@ -42,36 +43,25 @@ object PlayerJoin {
          */
         if (!Bukkit.getOnlineMode()) {
             val p: Player = e.player
-            val l: Location = p.location
-            val w: World = l.world!!
-            val x: Double = l.x
-            val y: Double = l.y
-            val z: Double = l.z
-            val l_xl = Location(w, x + 1, y, z)
-            val l_xr = Location(w, x - 1, y, z)
-            val l_up = Location(w, x, y + 1, z)
-            val l_down = Location(w, x, y - 1, z)
-            val l_zl = Location(w, x, y, z + 1)
-            val l_zr = Location(w, x, y, z - 1)
-            if (l.block.type == Material.NETHER_PORTAL || l_xl.block
-                    .type == Material.NETHER_PORTAL || l_xr.block
-                    .type == Material.NETHER_PORTAL || l_up.block
-                    .type == Material.NETHER_PORTAL || l_down.block
-                    .type == Material.NETHER_PORTAL || l_zl.block
-                    .type == Material.NETHER_PORTAL || l_zr.block.type == Material.NETHER_PORTAL
-            ) {
-                object : BukkitRunnable() {
-                    override fun run() {
-                        val spawn: Location = w.spawnLocation
-                        p.teleport(spawn)
-                        sm(p, "${prefix}检测到您在下界门处上线, 为防止您无法正常登录, 已将您传送到出生点!"
+            val pl: Location = p.location
+            val b: Block = pl.block
+            val bf: Array<BlockFace> = BlockFace.values()
+            for (blockface in bf) {
+                if (b.getRelative(blockface).type == Material.NETHER_PORTAL) {
+                    submit(delay = 4L) {
+                        p.teleport(pl.world!!.spawnLocation)
+                        sm(
+                            p, "${prefix}检测到您在下界门处上线, 为防止您无法正常登录, 已将您传送到出生点!"
                         )
-                        val x0 = String.format("%.2f", x)
-                        val y0 = String.format("%.2f", y)
-                        val z0 = String.format("%.2f", z)
+                        val l: Location = b.getRelative(blockface).location
+                        val x0 = String.format("%.2f", l.x)
+                        val y0 = String.format("%.2f", l.y)
+                        val z0 = String.format("%.2f", l.z)
                         sm(p, "${prefix}下界门位置: $x0, $y0, $z0")
+                        cancel()
                     }
-                }.runTaskLater(plugin, 4L)
+                    break
+                }
             }
         }
     }

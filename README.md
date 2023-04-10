@@ -17,6 +17,7 @@
 
 ## 指令
 - `/su reload` 重载插件配置文件.
+- `/su gr(grm,grms)` 执行游戏规则自动设置.
 - `/help` 若执行者为非OP，推送帮助文档链接.
 - `/givefly <player>` 给予一名玩家飞行权限.
 - `/listfly` 列出所有拥有飞行权限的玩家.
@@ -24,11 +25,15 @@
 
 ## 配置
 ### config.yml
+
 ```yml
+# 本插件一切消息的前缀
+prefix: "&b&l星林宇宙 &r&7>> &7"
+
 # 当玩家输入 /help 时, 推送该文档链接.
 help-document: "https://star-lin.feishu.cn/docs/doccnow2uz3RoK28RKLJleq0Qug"
-# 服务器内有玩家时, 执行关闭服务器前倒计时的秒数.
-server-close-countdown: 10
+# 服务器内有玩家时, 执行关闭服务器前倒计时的秒数(仅支持整数).
+close-countdown: 10
 
 # [模块] 飞行权限组管理
 # 可用参数: <player> = 玩家.
@@ -39,5 +44,30 @@ fly:
   list-fly: "lp group fly listmembers"
   # 移除一名玩家的飞行权限的指令.
   del-fly: "lp user <player> group remove fly"
+
 ```
+
 配置由插件自动生成，请勿在不清楚相关键值的作用的情况下修改配置文件。
+
+### gamemode.yml
+
+```yml
+# 模块: 游戏规则自动设置
+# 每次服务器启动完毕时将自动执行一次, 也可以使用 /su gr 触发.
+
+# 请务必确保游戏规则存在且相应的游戏规则值存在. 否则您的设置无效.
+# worlds键值填写 "*" 则表示全部世界. (请务必带上引号, 否则用 * 会报错)
+# 若您填写了不存在的游戏规则、游戏规则值 和 世界, 插件将自动忽略.
+
+# 示例:
+#keepInventory:
+#  value: true
+#  worlds: "*"
+
+keepInventory:
+  value: true
+  worlds: "*"
+randomTickSpeed:
+  value: 10
+  worlds: world, world_nether, world_the_end
+```

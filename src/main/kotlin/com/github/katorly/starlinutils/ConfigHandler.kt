@@ -13,14 +13,12 @@ import taboolib.module.configuration.Config
 import taboolib.module.configuration.Configuration
 
 object ConfigHandler {
-    @Config("config.yml")
-    lateinit var config: Configuration
+    @Config("config.yml", true, true)
+    lateinit var conf: Configuration
 
-    var conf: MutableMap<String, String> = HashMap()
-    var confl: MutableMap<String, List<String>> = HashMap()
     lateinit var prefix: String
 
-    @Config("gamerule.yml")
+    @Config("gamerule.yml", true, true)
     lateinit var grs: Configuration
 
     /**
@@ -28,7 +26,7 @@ object ConfigHandler {
      *
      */
     fun reloadConfig() {
-        config.reload()
+        conf.reload()
         grs.reload()
         cache()
     }
@@ -39,12 +37,6 @@ object ConfigHandler {
      *
      */
     private fun cache() {
-        conf.clear()
-        confl.clear()
-        for (key in config.getKeys(true)) {
-            if (config.isString(key) && config.getString(key) != null) conf[key] = config.getString(key)!!
-            else if (config.getStringList(key).isNotEmpty()) confl[key] = config.getStringList(key)
-        }
-        prefix = conf["prefix"] ?: "&b&l星林宇宙 &r&7>> &7"
+        prefix = conf.getString("prefix") ?: "&b&l星林宇宙 &r&7>> &7"
     }
 }

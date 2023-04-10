@@ -26,7 +26,7 @@ object Clistfly {
     @CommandBody
     val main = mainCommand {
         execute<ProxyCommandSender> { sender, context, arg ->
-            val cmd: String? = conf["fly.list-fly"]
+            val cmd: String? = conf.getString("fly.list-fly")
             sender.performCommand(cmd!!)
         }
         incorrectCommand { sender, context, index, state ->

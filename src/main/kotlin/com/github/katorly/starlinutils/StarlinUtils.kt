@@ -19,14 +19,12 @@ import taboolib.common.platform.function.info
 import taboolib.platform.BukkitPlugin
 
 
-object StarlinUtils: Plugin() {
+object StarlinUtils : Plugin() {
     val plugin by lazy { BukkitPlugin.getInstance() }
     var serverClosing = false
     val recipeKeys: MutableList<NamespacedKey> = ArrayList()
 
     override fun onEnable() {
-        if (Bukkit.getPluginManager().getPlugin("Multiverse-Core") != null) info("[StarlinUtils] 识别到 Multiverse-Core.")
-        else info("[StarlinUtils] Multiverse-Core 未加载. 多世界游戏规则设定功能将不可用.")
         reloadConfig()
         RecipeHandler.registerConcreteRecipe()
         info("[StarlinUtils] 仓库: https://github.com/katorlys/StarlinUtils")

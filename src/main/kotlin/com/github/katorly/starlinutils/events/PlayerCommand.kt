@@ -15,10 +15,16 @@ import com.github.katorly.starlinutils.StarlinUtils
 import com.github.katorly.starlinutils.tools.CloseServer
 import com.github.katorly.starlinutils.utils.Messager.sm
 import org.bukkit.event.player.PlayerCommandPreprocessEvent
+import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
+import taboolib.common.platform.function.adaptCommandSender
+import taboolib.module.chat.ComponentText
+import taboolib.module.chat.Components
+import taboolib.module.chat.colored
+
 
 object PlayerCommand {
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
     fun onPlayerCommand(e: PlayerCommandPreprocessEvent) {
         /**
          * 若玩家执行 "/help", 推送帮助文档链接.
@@ -26,8 +32,11 @@ object PlayerCommand {
          */
         if (e.message == "/help" && !e.player.isOp) {
             e.isCancelled = true
-            val link: String? = conf["help-document"]
-            sm(e.player, "${prefix}新手指南: &f${link}")
+            val link: String = conf.getString("help-document") ?: "未知"
+            val text: ComponentText = Components.text(" ")
+            text.append("${prefix}新手指南: ".colored())
+                .append("&f${link}".colored()).hoverText("&f点击打开!".colored()).clickOpenURL(link)
+                .sendTo(adaptCommandSender(e.player))
         }
         /**
          * 关闭服务器前, 若有玩家在线, 则提醒 + 倒计时关服.

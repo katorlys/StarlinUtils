@@ -32,7 +32,7 @@ object Cdelfly {
                 onlinePlayers().map { it.name }
             }
             execute<ProxyCommandSender> { sender, context, arg ->
-                val cmd: String? = conf["fly.del-fly"]?.replace(Pair("<player>", arg))
+                val cmd: String? = conf.getString("fly.del-fly")?.replace(Pair("<player>", arg))
                 sender.performCommand(cmd!!)
             }
         }
