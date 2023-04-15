@@ -19,6 +19,7 @@
 - `/su reload` 重载插件配置文件.
 - `/su gr(grm,grms)` 执行游戏规则自动设置.
 - `/help` 若执行者为非OP，推送帮助文档链接.
+- `/setupfly` 初始化飞行权限组 (当安装了 LuckPerms 时可用).
 - `/givefly <player>` 给予一名玩家飞行权限.
 - `/listfly` 列出所有拥有飞行权限的玩家.
 - `/delfly <player>` 移除一名玩家的飞行权限.

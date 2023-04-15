@@ -7,7 +7,7 @@
  * http://creativecommons.org/licenses/by-nc-nd/4.0/.
  */
 
-package com.github.katorly.starlinutils.gamerule
+package com.github.katorly.starlinutils.tools
 
 import com.github.katorly.starlinutils.ConfigHandler.grs
 import org.bukkit.Bukkit

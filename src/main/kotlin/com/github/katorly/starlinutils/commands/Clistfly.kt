@@ -11,11 +11,18 @@ package com.github.katorly.starlinutils.commands
 
 import com.github.katorly.starlinutils.ConfigHandler.conf
 import com.github.katorly.starlinutils.ConfigHandler.prefix
+import com.github.katorly.starlinutils.StarlinUtils
+import com.github.katorly.starlinutils.StarlinUtils.plugin
+import com.github.katorly.starlinutils.tools.FlyManager
 import com.github.katorly.starlinutils.utils.Messager.sm
+import net.luckperms.api.node.matcher.NodeMatcher
+import net.luckperms.api.node.types.InheritanceNode
 import taboolib.common.platform.ProxyCommandSender
 import taboolib.common.platform.command.CommandBody
 import taboolib.common.platform.command.CommandHeader
 import taboolib.common.platform.command.mainCommand
+import java.util.*
+
 
 /**
  * 列出所有拥有飞行权限的玩家.
@@ -26,8 +33,30 @@ object Clistfly {
     @CommandBody
     val main = mainCommand {
         execute<ProxyCommandSender> { sender, context, arg ->
-            val cmd: String? = conf.getString("fly.list-fly")
-            sender.performCommand(cmd!!)
+            if (sender.isOp) {
+                if (StarlinUtils.islp()) {
+                    FlyManager.setup()
+                    StarlinUtils.lp.userManager.searchAll(
+                        NodeMatcher.key(
+                            InheritanceNode
+                                .builder(StarlinUtils.lp.groupManager.getGroup("fly")!!).build()
+                        )
+                    ).thenAccept { map: Map<UUID, Collection<InheritanceNode?>?> ->
+                        val memberUniqueIds = map.keys
+                        sm(sender, ("${prefix}共 ${memberUniqueIds.size} 名玩家拥有飞行权限:"))
+                        memberUniqueIds.forEach() { key ->
+                            sm(sender, "&7 ${plugin.server.getOfflinePlayer(key).name}")
+                        }
+                    }
+                } else {
+                    val cmd: String? = conf.getString("fly.list-fly")
+                    if (cmd != null) sender.performCommand(cmd)
+                    else sm(
+                        sender,
+                        "${prefix}无法列出所有拥有飞行权限的玩家. 原因: 既未安装 LuckPerms, 也未设置相应指令."
+                    )
+                }
+            }
         }
         incorrectCommand { sender, context, index, state ->
             sm(sender, "${prefix}用法: /listfly.")

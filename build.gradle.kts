@@ -35,7 +35,7 @@ taboolib {
     install("common", "common-5")
     install("module-chat", "module-configuration", "module-database", "module-ui")
     install("platform-bukkit")
-    install("expansion-command-helper", "expansion-player-database")
+    install("expansion-player-database")
 //    relocate("kotlinx.datetime", "$group.kotlinx.datetime") // 不要用 relocate, 不然依赖打包不进去
     classifier = null
     version = "6.0.10-98"
@@ -62,7 +62,7 @@ dependencies {
     compileOnly("ink.ptms.core:v11902:11902-minimize:universal")
 
     taboo("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0") // 要打包进去的依赖必须用 taboo
-    taboo("net.luckperms:api:5.4")
+    compileOnly("net.luckperms:api:5.4")
     compileOnly(fileTree("libs"))
 }
 
