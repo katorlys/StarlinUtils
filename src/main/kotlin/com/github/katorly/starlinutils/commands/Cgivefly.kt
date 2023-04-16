@@ -11,21 +11,14 @@ package com.github.katorly.starlinutils.commands
 
 import com.github.katorly.starlinutils.ConfigHandler
 import com.github.katorly.starlinutils.ConfigHandler.prefix
-import com.github.katorly.starlinutils.StarlinUtils
 import com.github.katorly.starlinutils.StarlinUtils.plugin
 import com.github.katorly.starlinutils.tools.FlyManager
 import com.github.katorly.starlinutils.utils.Messager.sm
-import net.luckperms.api.model.group.Group
-import net.luckperms.api.model.user.User
-import net.luckperms.api.node.types.InheritanceNode
 import taboolib.common.platform.ProxyCommandSender
-import taboolib.common.platform.ProxyPlayer
 import taboolib.common.platform.command.CommandBody
 import taboolib.common.platform.command.CommandHeader
 import taboolib.common.platform.command.mainCommand
-import taboolib.common.platform.function.getProxyPlayer
 import taboolib.common.platform.function.onlinePlayers
-import java.util.*
 
 /**
  * 给予一名玩家飞行权限.
@@ -41,26 +34,14 @@ object Cgivefly {
             }
             execute<ProxyCommandSender> { sender, context, arg ->
                 if (sender.isOp) {
-                    if (StarlinUtils.islp()) {
-                        // 谁敢冲突 UUID 那就是谁自己的事, 这个 Deprecation 我不管了
-                        val t: UUID = getProxyPlayer(arg)?.uniqueId ?: plugin.server.getOfflinePlayer(arg).uniqueId
-                        if (t.toString() != "") {
-                            val p: ProxyPlayer = getProxyPlayer(t)!!
-                            FlyManager.setup()
-                            val g: Group = StarlinUtils.lp.groupManager.getGroup("fly")!!
-                            if (!p.hasPermission("group.$g")) {
-                                StarlinUtils.lp.userManager.modifyUser(p.uniqueId) { u: User ->
-                                    u.data().add(InheritanceNode.builder(g).build())
-                                    sm(sender, "${prefix}成功为${p.name}添加飞行权限.")
-                                }
-                            } else sm(sender, "${prefix}${p.name}已拥有飞行权限!")
-                        } else sm(sender, "${prefix}玩家不存在!")
+                    if (plugin.server.pluginManager.getPlugin("LuckPerms") != null) {
+                        FlyManager.givefly(arg, sender)
                     } else {
                         val cmd: String? = ConfigHandler.conf.getString("fly.give-fly")?.replace("<player>", arg)
                         if (cmd != null) sender.performCommand(cmd)
                         else sm(sender, "${prefix}无法给予玩家飞行权限. 原因: 既未安装 LuckPerms, 也未设置相应指令.")
                     }
-                }
+                } else sm(sender, "${prefix}没有权限!")
             }
         }
         execute<ProxyCommandSender> { sender, context, arg ->

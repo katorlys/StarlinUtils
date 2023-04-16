@@ -10,7 +10,7 @@
 package com.github.katorly.starlinutils.commands
 
 import com.github.katorly.starlinutils.ConfigHandler.prefix
-import com.github.katorly.starlinutils.StarlinUtils
+import com.github.katorly.starlinutils.StarlinUtils.plugin
 import com.github.katorly.starlinutils.tools.FlyManager
 import com.github.katorly.starlinutils.utils.Messager.sm
 import taboolib.common.platform.ProxyCommandSender
@@ -24,13 +24,13 @@ object Csetupfly {
     val main = mainCommand {
         execute<ProxyCommandSender> { sender, context, arg ->
             if (sender.isOp) {
-                if (StarlinUtils.islp()) {
+                if (plugin.server.pluginManager.getPlugin("LuckPerms") != null) {
                     FlyManager.setup()
                     sm(sender, "${prefix}成功初始化飞行权限组.")
                 } else {
                     sm(sender, "${prefix}服务器未安装 LuckPerms 插件, 无法自动初始化飞行权限组.")
                 }
-            }
+            } else sm(sender, "${prefix}没有权限!")
         }
         incorrectCommand { sender, context, index, state ->
             sm(sender, "${prefix}用法: /listfly.")

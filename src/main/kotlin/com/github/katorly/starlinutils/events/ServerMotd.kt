@@ -25,7 +25,7 @@ object ServerMotd {
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     fun onServerMotd(e: ServerListPingEvent) {
         val motd: String = conf.getString("motd")
-            ?: "                &{#1085fb}&l星&{#198bfb}&l林&{#2291fb}&l宇&{#2b96fb}&l宙 &{#349cfc}&lS&{#3da2fc}&lt&{#46a8fc}&la&{#4faefc}&lr&{#57b3fc}&ll&{#60b9fc}&li&{#69bffc}&ln&{#72c5fc}&lW&{#7bcbfd}&lo&{#84d0fd}&lr&{#8dd6fd}&ll&{#96dcfd}&ld"
+            ?: "                 &{#1085fb}&l星&{#198bfb}&l林&{#2291fb}&l宇&{#2b96fb}&l宙 &{#349cfc}&lS&{#3da2fc}&lt&{#46a8fc}&la&{#4faefc}&lr&{#57b3fc}&ll&{#60b9fc}&li&{#69bffc}&ln&{#72c5fc}&lW&{#7bcbfd}&lo&{#84d0fd}&lr&{#8dd6fd}&ll&{#96dcfd}&ld"
         e.motd = formatOther(motd, e.address.hostName, e.address, e.numPlayers, e.maxPlayers).tformat().colored()
     }
 

@@ -29,7 +29,7 @@ object CloseServer {
                 "&b&l服务器 ${conf.getInt("close-countdown")} 秒后重启",
                 "&7请保管好个人物品!"
             )
-            submit(delay = (conf.getInt("close-countdown").times(20)).toLong()) {
+            submit(delay = conf.getInt("close-countdown").times(20).toLong()) {
                 plugin.server.shutdown()
             }
         } else {

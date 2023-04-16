@@ -1,16 +1,19 @@
 # 本插件一切消息的前缀
 prefix: "&b&l星林宇宙 &r&7>> &7"
 
+# 服务器 QQ 群群号
+qq-group: 189594977
+
 # 服务器 Motd
 #   可用参数:
 #     {hostname} = 服务器主机名, {address} = 连接者IP地址,
 #     {players} = 当前玩家数, {maxplayers} = 最大玩家数,
 #     {year} = 年, {month} = 月, {day} = 日,
 #     {hour} = 时, {minute} = 分, {second} = 秒.
-motd: "&7                &{#1085fb}&l星&{#198bfb}&l林&{#2291fb}&l宇&{#2b96fb}&l宙 &{#349cfc}&lS&{#3da2fc}&lt&{#46a8fc}&la&{#4faefc}&lr&{#57b3fc}&ll&{#60b9fc}&li&{#69bffc}&ln&{#72c5fc}&lW&{#7bcbfd}&lo&{#84d0fd}&lr&{#8dd6fd}&ll&{#96dcfd}&ld\n&r           &d{year} &7| &9纯净生存 &7| &9探索未知 &7| &9共创美好"
+motd: "&7                 &{#1085fb}&l星&{#198bfb}&l林&{#2291fb}&l宇&{#2b96fb}&l宙 &{#349cfc}&lS&{#3da2fc}&lt&{#46a8fc}&la&{#4faefc}&lr&{#57b3fc}&ll&{#60b9fc}&li&{#69bffc}&ln&{#72c5fc}&lW&{#7bcbfd}&lo&{#84d0fd}&lr&{#8dd6fd}&ll&{#96dcfd}&ld\n&r           &d{year} &7| &9纯净生存 &7| &9探索未知 &7| &9共创美好"
 
 # 当玩家输入 /help 时, 推送该文档链接.
-help-document: "https://star-lin.feishu.cn/docs/doccnow2uz3RoK28RKLJleq0Qug"
+help-docs: "https://star-lin.feishu.cn/docs/doccnow2uz3RoK28RKLJleq0Qug"
 
 # 服务器内有玩家时, 执行关闭服务器前倒计时的秒数(仅支持整数).
 close-countdown: 10
