@@ -35,7 +35,7 @@ object Cgivefly {
             execute<ProxyCommandSender> { sender, context, arg ->
                 if (sender.isOp) {
                     if (plugin.server.pluginManager.getPlugin("LuckPerms") != null) {
-                        FlyManager.givefly(arg, sender)
+                        FlyManager.givefly(arg, sender) // TODO 此处传参导致 LP 不存在时整个指令都不注册
                     } else {
                         val cmd: String? = ConfigHandler.conf.getString("fly.give-fly")?.replace("<player>", arg)
                         if (cmd != null) sender.performCommand(cmd)

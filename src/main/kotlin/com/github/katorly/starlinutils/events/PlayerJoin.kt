@@ -11,6 +11,7 @@ package com.github.katorly.starlinutils.events
 
 import com.github.katorly.starlinutils.ConfigHandler.prefix
 import com.github.katorly.starlinutils.StarlinUtils
+import com.github.katorly.starlinutils.tools.PlayTime.initPlayTime
 import com.github.katorly.starlinutils.utils.Messager.sm
 import com.github.katorly.starlinutils.utils.Messager.st
 import org.bukkit.Bukkit
@@ -26,13 +27,18 @@ import taboolib.common.platform.function.submit
 object PlayerJoin {
     @SubscribeEvent
     fun onPlayerJoin(e: PlayerJoinEvent) {
+        val p: Player = e.player
+
         /**
          * 检测服务器是否即将关闭, 若是, 则提醒玩家.
          *
          */
         if (StarlinUtils.serverClosing) {
-            st(e.player, "&b&l服务器即将重启", "&7请保管好个人物品!")
+            st(p, "&b&l服务器即将重启", "&7请保管好个人物品!")
         }
+
+        // PlayTime 相关功能
+        initPlayTime(p)
 
         /**
          * 防卡下界门: 若玩家登录地点为下界门,
@@ -42,7 +48,6 @@ object PlayerJoin {
          *
          */
         if (!Bukkit.getOnlineMode()) {
-            val p: Player = e.player
             val pl: Location = p.location
             val b: Block = pl.block
             val bf: Array<BlockFace> = BlockFace.values()

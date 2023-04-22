@@ -18,6 +18,19 @@ help-docs: "https://star-lin.feishu.cn/docs/doccnow2uz3RoK28RKLJleq0Qug"
 # 服务器内有玩家时, 执行关闭服务器前倒计时的秒数(仅支持整数).
 close-countdown: 10
 
+# [模块] 玩家游玩时间统计
+playtime:
+  # 是否启用 MySQL 数据库, 否则启用 SQLite
+  # 若启用, 请务必先配置好 MySQL 数据库!
+  enable-mysql: false
+  mysql:
+    host: localhost
+    port: 3306
+    user: root
+    password: root
+    database: root
+    table: online_time
+
 # [模块] 飞行权限组管理
 #   可用参数: <player> = 玩家.
 fly:

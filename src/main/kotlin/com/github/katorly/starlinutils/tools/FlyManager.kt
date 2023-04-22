@@ -25,7 +25,7 @@ import taboolib.common.platform.ProxyPlayer
 import taboolib.common.platform.function.getProxyPlayer
 import java.util.*
 
-// TODO 目前只有安装了 LuckPerms 才能使用飞行权限组管理
+// TODO 目前只有安装了 LuckPerms 才能使用飞行权限组管理, 问题见 Cgivefly.kt 中的 TODO.
 object FlyManager {
     private fun getLP(): LuckPerms? {
         return Bukkit.getServicesManager().getRegistration(LuckPerms::class.java)?.provider

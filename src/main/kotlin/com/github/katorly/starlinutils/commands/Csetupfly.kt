@@ -28,7 +28,7 @@ object Csetupfly {
                     FlyManager.setup()
                     sm(sender, "${prefix}成功初始化飞行权限组.")
                 } else {
-                    sm(sender, "${prefix}服务器未安装 LuckPerms 插件, 无法自动初始化飞行权限组.")
+                    sm(sender, "${prefix}服务器未安装 LuckPerms 插件, 无法自动初始化飞行权限组!")
                 }
             } else sm(sender, "${prefix}没有权限!")
         }

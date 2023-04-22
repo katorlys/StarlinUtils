@@ -29,7 +29,7 @@ taboolib {
             name("Katorly")
         }
         dependencies {
-            name("LuckPerms").optional(true)
+            name("LuckPerms").optional(true).loadafter(true)
         }
     }
     install("common", "common-5")
@@ -49,18 +49,16 @@ repositories {
     maven("https://repo.huaweicloud.com/repository/maven/") // Mirror: Comment this if you are not in China
     mavenLocal()
     mavenCentral()
-//    maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
 //    maven("https://repo.tabooproject.org/repository/releases")
 }
 
 dependencies {
     compileOnly(kotlin("stdlib"))
-//    compileOnly("org.spigotmc:spigot-api:$spigotVersion")
 
     compileOnly("ink.ptms.core:v11902:11902-minimize:mapped")
     compileOnly("ink.ptms.core:v11902:11902-minimize:universal")
 
-    taboo("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0") // 要打包进去的依赖必须用 taboo
+    compileOnly("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0") // 要打包进去的依赖必须用 taboo
     compileOnly("net.luckperms:api:5.4")
     compileOnly(fileTree("libs"))
 }

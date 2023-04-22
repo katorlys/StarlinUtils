@@ -14,13 +14,14 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import org.bukkit.event.server.ServerListPingEvent
+import taboolib.common.env.RuntimeDependency
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common5.util.replace
 import taboolib.module.chat.colored
 import java.net.InetAddress
 
-//@RuntimeDependency("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0") // 不需要这个
+@RuntimeDependency("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
 object ServerMotd {
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     fun onServerMotd(e: ServerListPingEvent) {
