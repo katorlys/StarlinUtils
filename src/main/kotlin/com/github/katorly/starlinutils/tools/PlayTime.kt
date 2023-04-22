@@ -26,6 +26,11 @@ import java.util.*
 object PlayTime {
     val onlineTime: MutableMap<UUID, Long> = HashMap()
 
+    private const val name = "name"
+    private const val total = "total"
+    private const val first = "first"
+    private const val last = "last"
+
     /**
      * 记录玩家进服时间.
      * 若数据库中不存在该玩家的在线数据, 则创建并记录将该玩家之前的在线时间计入总在线时间.
@@ -45,18 +50,19 @@ object PlayTime {
     fun settlePlayTime(p: Player) {
         val time: Int
         val c = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+        val yrmon = "${c.year}.${c.monthNumber}"
         val d: DataContainer = p.getDataContainer()
         val keys: Set<String> = d.keys()
         if (onlineTime.containsKey(p.uniqueId)) {
-            // 存的是分钟整数.
-            time = ((System.currentTimeMillis() / 1000 / 60 - onlineTime[p.uniqueId]!!)).toInt()
-            d["total"] += time
-            if (!keys.contains("${c.year}.${c.monthNumber}"))
-                d["${c.year}.${c.monthNumber}"] = time
+            // 单位: 分钟(整数)
+            time = (System.currentTimeMillis() / 1000 / 60 - onlineTime[p.uniqueId]!!).toInt()
+            d[total] += time
+            if (!keys.contains(yrmon))
+                d[yrmon] = time
             else
-                d["${c.year}.${c.monthNumber}"] += time
+                d[yrmon] += time
         }
-        d["last"] = "${c.year}.${c.monthNumber}.${c.dayOfMonth} ${c.hour}:${c.minute}:${c.second}"
+        d[last] = "${yrmon}.${c.dayOfMonth} ${c.hour}:${c.minute}:${c.second}"
         p.releaseDataContainer()
     }
 
@@ -69,19 +75,20 @@ object PlayTime {
     private fun init(p: Player) {
         val d: DataContainer = p.getDataContainer()
         val keys: Set<String> = d.keys()
-        if (!keys.contains("name"))
-            d["name"] = p.name
-        if (!keys.contains("first")) {
+        if (!keys.contains(name))
+            d[name] = p.name
+        if (!keys.contains(first)) {
             // 若 firstPlayed = 0, 表明玩家是第一次进服.
             if (p.firstPlayed == 0.toLong()) {
                 val c = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-                d["first"] = "${c.year}.${c.monthNumber}.${c.dayOfMonth} ${c.hour}:${c.minute}:${c.second}"
+                d[first] = "${c.year}.${c.monthNumber}.${c.dayOfMonth} ${c.hour}:${c.minute}:${c.second}"
             } else {
                 val c = Instant.fromEpochMilliseconds(p.firstPlayed).toLocalDateTime(TimeZone.currentSystemDefault())
-                d["first"] = "${c.year}.${c.monthNumber}.${c.dayOfMonth} ${c.hour}:${c.minute}:${c.second}"
+                d[first] = "${c.year}.${c.monthNumber}.${c.dayOfMonth} ${c.hour}:${c.minute}:${c.second}"
             }
         }
         if (!keys.contains("total"))
-            d["total"] = p.getStatistic(Statistic.PLAY_ONE_MINUTE) / 20 / 60
+        // 单位: 分钟(整数)
+            d[total] = p.getStatistic(Statistic.PLAY_ONE_MINUTE) / 20 / 60
     }
 }

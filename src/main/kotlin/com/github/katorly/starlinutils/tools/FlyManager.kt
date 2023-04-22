@@ -83,7 +83,7 @@ object FlyManager {
                 )
             ).thenAccept { map: Map<UUID, Collection<InheritanceNode?>?> ->
                 val memberUniqueIds = map.keys
-                sm(sender, ("${prefix}共 ${memberUniqueIds.size} 名玩家拥有飞行权限."))
+                sm(sender, "${prefix}共 ${memberUniqueIds.size} 名玩家拥有飞行权限.")
                 memberUniqueIds.forEach { key ->
                     sm(sender, "&7 ${plugin.server.getOfflinePlayer(key).name}")
                 }
