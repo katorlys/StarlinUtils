@@ -9,20 +9,14 @@
 
 package com.github.katorly.starlinutils.tools
 
-import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
 import org.bukkit.Statistic
 import org.bukkit.entity.Player
-import taboolib.common.env.RuntimeDependency
 import taboolib.expansion.DataContainer
 import taboolib.expansion.getDataContainer
 import taboolib.expansion.releaseDataContainer
 import taboolib.expansion.setupDataContainer
 import java.util.*
 
-@RuntimeDependency("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
 object PlayTime {
     val onlineTime: MutableMap<UUID, Long> = HashMap()
 
@@ -49,8 +43,8 @@ object PlayTime {
      */
     fun settlePlayTime(p: Player) {
         val time: Int
-        val c = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-        val yrmon = "${c.year}.${c.monthNumber}"
+        val c = Calendar.getInstance()
+        val yrmon = "${c.get(Calendar.YEAR)}.${c.get(Calendar.MONTH)}"
         val d: DataContainer = p.getDataContainer()
         val keys: Set<String> = d.keys()
         if (onlineTime.containsKey(p.uniqueId)) {
@@ -62,7 +56,8 @@ object PlayTime {
             else
                 d[yrmon] += time
         }
-        d[last] = "${yrmon}.${c.dayOfMonth} ${c.hour}:${c.minute}:${c.second}"
+        d[last] =
+            "${yrmon}.${c.get(Calendar.MONTH)} ${c.get(Calendar.HOUR_OF_DAY)}:${c.get(Calendar.MINUTE)}:${c.get(Calendar.SECOND)}"
         p.releaseDataContainer()
     }
 
@@ -80,11 +75,18 @@ object PlayTime {
         if (!keys.contains(first)) {
             // 若 firstPlayed = 0, 表明玩家是第一次进服.
             if (p.firstPlayed == 0.toLong()) {
-                val c = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-                d[first] = "${c.year}.${c.monthNumber}.${c.dayOfMonth} ${c.hour}:${c.minute}:${c.second}"
+                val c = Calendar.getInstance()
+                d[first] =
+                    "${c.get(Calendar.YEAR)}.${c.get(Calendar.MONTH)}.${c.get(Calendar.DAY_OF_MONTH)} ${c.get(Calendar.HOUR_OF_DAY)}:${
+                        c.get(Calendar.MINUTE)
+                    }:${c.get(Calendar.SECOND)}"
             } else {
-                val c = Instant.fromEpochMilliseconds(p.firstPlayed).toLocalDateTime(TimeZone.currentSystemDefault())
-                d[first] = "${c.year}.${c.monthNumber}.${c.dayOfMonth} ${c.hour}:${c.minute}:${c.second}"
+                val c = Calendar.getInstance()
+                c.timeInMillis = p.firstPlayed
+                d[first] =
+                    "${c.get(Calendar.YEAR)}.${c.get(Calendar.MONTH)}.${c.get(Calendar.DAY_OF_MONTH)} ${c.get(Calendar.HOUR_OF_DAY)}:${
+                        c.get(Calendar.MINUTE)
+                    }:${c.get(Calendar.SECOND)}"
             }
         }
         if (!keys.contains("total"))

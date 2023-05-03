@@ -10,18 +10,14 @@
 package com.github.katorly.starlinutils.events
 
 import com.github.katorly.starlinutils.ConfigHandler.conf
-import kotlinx.datetime.Clock
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
+import com.github.katorly.starlinutils.utils.Strings.multireplace
 import org.bukkit.event.server.ServerListPingEvent
-import taboolib.common.env.RuntimeDependency
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
-import taboolib.common5.util.replace
 import taboolib.module.chat.colored
 import java.net.InetAddress
+import java.util.*
 
-@RuntimeDependency("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
 object ServerMotd {
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     fun onServerMotd(e: ServerListPingEvent) {
@@ -41,11 +37,11 @@ object ServerMotd {
         players: Int,
         maxplayers: Int
     ): String {
-        return motd.replace(
-            Pair("{hostname}", hostname),
-            Pair("{address}", address.toString()),
-            Pair("{players}", players.toString()),
-            Pair("{maxplayers}", maxplayers.toString())
+        return motd.multireplace(
+            "{hostname}" to hostname,
+            "{address}" to address.toString(),
+            "{players}" to players.toString(),
+            "{maxplayers}" to maxplayers.toString()
         )
     }
 
@@ -55,15 +51,15 @@ object ServerMotd {
      */
     private fun String.tformat() = formatTime(this)
     private fun formatTime(motd: String): String {
-        // 本来用的是 Calendar，但不是 Kotlin 的，就算了
-        val c = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-        return motd.replace(
-            Pair("{day}", c.dayOfMonth),
-            Pair("{month}", c.monthNumber),
-            Pair("{year}", c.year),
-            Pair("{hour}", c.hour),
-            Pair("{minute}", c.minute),
-            Pair("{second}", c.second)
+        // 本来用的是 Kotlinx DateTime，但由于 Taboolib 的缘故必须打包进 jar 文件, 太大了, 就算了
+        val c = Calendar.getInstance()
+        return motd.multireplace(
+            "{day}" to c.get(Calendar.DAY_OF_MONTH),
+            "{month}" to c.get(Calendar.MONTH),
+            "{year}" to c.get(Calendar.YEAR),
+            "{hour}" to c.get(Calendar.HOUR_OF_DAY),
+            "{minute}" to c.get(Calendar.MINUTE),
+            "{second}" to c.get(Calendar.SECOND)
         )
 
     }

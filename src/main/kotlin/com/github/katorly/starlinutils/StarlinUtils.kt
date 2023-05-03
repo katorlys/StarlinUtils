@@ -39,7 +39,7 @@ object StarlinUtils : Plugin() {
             setupPlayerDatabase(File(getDataFolder(), "data.db"))
         }
         RecipeHandler.registerConcreteRecipe()
-        if (plugin.server.pluginManager.getPlugin("LuckPerms") != null) info("[StarlinUtils] 检测到 LuckPerms, 飞行权限组管理现在使用其 API.")
+        if (plugin.server.pluginManager.getPlugin("LuckPerms") != null) info("[StarlinUtils] 检测到 LuckPerms, 现在可以使用 /setupfly 指令来初始化飞行权限组 (如果还没初始化的话).")
         info("[StarlinUtils] 仓库: https://github.com/katorlys/StarlinUtils")
         info("[StarlinUtils] StarlinUtils 已加载! 为 星林宇宙 而做.")
 

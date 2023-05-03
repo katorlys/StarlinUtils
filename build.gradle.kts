@@ -58,7 +58,7 @@ dependencies {
     compileOnly("ink.ptms.core:v11902:11902-minimize:mapped")
     compileOnly("ink.ptms.core:v11902:11902-minimize:universal")
 
-    compileOnly("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0") // 要打包进去的依赖必须用 taboo
+//    taboo("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0") // 要打包进去的依赖必须用 taboo
     compileOnly("net.luckperms:api:5.4")
     compileOnly(fileTree("libs"))
 }

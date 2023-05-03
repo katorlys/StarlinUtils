@@ -34,6 +34,11 @@ playtime:
 # [模块] 飞行权限组管理
 #   可用参数: <player> = 玩家.
 fly:
+  # 当服务器安装了 LuckPerms 时, 可使用 /setupfly 指令来初始化飞行权限组 (如果还没初始化的话).
+  # 此处是设置要给飞行权限组添加的权限, 一行一个.
+  permission:
+    - "essentials.fly"
+    - "essentials.fly.safelogin"
   # 给予一名玩家飞行权限的指令.
   give-fly: "lp user <player> group add fly"
   # 列出所有拥有飞行权限的玩家的指令.
