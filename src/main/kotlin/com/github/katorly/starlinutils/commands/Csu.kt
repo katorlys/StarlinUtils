@@ -35,7 +35,18 @@ object Csu {
         }
     }
 
-    @CommandBody(optional = true, aliases = ["gr", "grm", "grms"])
+    @CommandBody(optional = true, aliases = ["a", "auto"])
+    val autoset = subCommand {
+        execute<ProxyCommandSender> { sender, context, arg ->
+            if (sender.isOp) {
+                sm(sender, "${prefix}还没做! 急什么!")
+                TODO()
+                sm(sender, "${prefix}成功为服务器设置预设设置.")
+            } else sm(sender, "${prefix}没有权限!")
+        }
+    }
+
+    @CommandBody(optional = true, aliases = ["g", "gr", "grm", "grms"])
     val gamerule = subCommand {
         execute<ProxyCommandSender> { sender, context, arg ->
             if (sender.isOp) sm(sender, "${prefix}成功执行游戏规则自动设置, 共更改 &f${setGamerule()} &7处.")
@@ -43,7 +54,7 @@ object Csu {
         }
     }
 
-    @CommandBody(optional = true)
+    @CommandBody(optional = true, aliases = ["r"])
     val reload = subCommand {
         execute<ProxyCommandSender> { sender, context, arg ->
             if (sender.isOp) {

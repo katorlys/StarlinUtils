@@ -45,3 +45,9 @@ fly:
   list-fly: "lp group fly listmembers"
   # 移除一名玩家的飞行权限的指令.
   del-fly: "lp user <player> group remove fly"
+
+# [模块] 一键自动为服务器设置预设设置
+#   焯, 发现 Plugman 的 download 做得奇差无比, 先不搞了
+autoset:
+  plugins:
+    - ""
