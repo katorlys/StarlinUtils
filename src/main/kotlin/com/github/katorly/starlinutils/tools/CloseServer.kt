@@ -9,7 +9,7 @@
 
 package com.github.katorly.starlinutils.tools
 
-import com.github.katorly.starlinutils.ConfigHandler.config
+import com.github.katorly.starlinutils.ConfigHandler.conf
 import com.github.katorly.starlinutils.StarlinUtils
 import com.github.katorly.starlinutils.StarlinUtils.plugin
 import com.github.katorly.starlinutils.utils.Messager.bt
@@ -26,10 +26,10 @@ object CloseServer {
         if (onlinePlayers().isNotEmpty()) {
             StarlinUtils.serverClosing = true
             bt(
-                "&b&l服务器 ${config.getInt("close-countdown")} 秒后重启",
+                "&b&l服务器 ${conf.getInt("close-countdown")} 秒后重启",
                 "&7请保管好个人物品!"
             )
-            submit(delay = (config.getInt("close-countdown").times(20)).toLong()) {
+            submit(delay = conf.getInt("close-countdown").times(20).toLong()) {
                 plugin.server.shutdown()
             }
         } else {

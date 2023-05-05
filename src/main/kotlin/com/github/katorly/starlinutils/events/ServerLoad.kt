@@ -9,11 +9,15 @@
 
 package com.github.katorly.starlinutils.events
 
-import com.github.katorly.starlinutils.gamerule.GameruleHandler.setGamerule
+import com.github.katorly.starlinutils.tools.GameruleHandler.setGamerule
 import org.bukkit.event.server.ServerLoadEvent
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.info
 
+/**
+ * 服务器加载完成后自动执行游戏规则自动设置.
+ *
+ */
 object ServerLoad {
     @SubscribeEvent
     fun onServerLoaded(e: ServerLoadEvent) {

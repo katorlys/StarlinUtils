@@ -9,7 +9,7 @@
 
 package com.github.katorly.starlinutils.commands
 
-import com.github.katorly.starlinutils.ConfigHandler.conf
+import com.github.katorly.starlinutils.ConfigHandler
 import com.github.katorly.starlinutils.ConfigHandler.prefix
 import com.github.katorly.starlinutils.utils.Messager.sm
 import taboolib.common.platform.ProxyCommandSender
@@ -17,7 +17,6 @@ import taboolib.common.platform.command.CommandBody
 import taboolib.common.platform.command.CommandHeader
 import taboolib.common.platform.command.mainCommand
 import taboolib.common.platform.function.onlinePlayers
-import taboolib.common5.util.replace
 
 /**
  * 移除一名玩家的飞行权限.
@@ -32,8 +31,11 @@ object Cdelfly {
                 onlinePlayers().map { it.name }
             }
             execute<ProxyCommandSender> { sender, context, arg ->
-                val cmd: String? = conf["fly.del-fly"]?.replace(Pair("<player>", arg))
-                sender.performCommand(cmd!!)
+                if (sender.isOp) {
+                    val cmd: String? = ConfigHandler.conf.getString("fly.del-fly")?.replace("<player>", arg)
+                    if (cmd != null) sender.performCommand(cmd)
+                    else sm(sender, "${prefix}无法给予玩家飞行权限. 原因: 既未安装 LuckPerms, 也未设置相应指令.")
+                } else sm(sender, "${prefix}没有权限!")
             }
         }
         execute<ProxyCommandSender> { sender, context, arg ->
