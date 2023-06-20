@@ -1,0 +1,26 @@
+# 插件一切游戏内消息的前缀
+prefix: "&x&7&9&b&1&f&f&l星林宇宙 &r&7"
+
+# 数据库相关设置
+database:
+    # 文件名, 自动以 .db 结尾, 所以无需填写后缀
+    name: data
+
+# 游戏体验相关设置
+game:
+    # 是否保留物品栏
+    keepInventory: true
+    # 是否保留经验值
+    keepLevel: true
+
+# 服务器某些坐标的设置
+location:
+    # 服务器主城位置, 若不设置则自动获取为主世界出生点.
+    spawn:
+        # ==: org.bukkit.Location
+        # world: world
+        # x: 0.0
+        # y: 0.0
+        # z: 50.0
+        # pitch: 0.0
+        # yaw: 0.0
